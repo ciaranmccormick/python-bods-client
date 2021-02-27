@@ -1,7 +1,7 @@
 # bods-client
 
-[![Build Status](https://github.com/ciaran.mccormick/python-bods-client/workflows/test/badge.svg?branch=master&event=push)](https://github.com/ciaran.mccormick/python-bods-client/actions?query=workflow%3Atest)
-[![codecov](https://codecov.io/gh/ciaran.mccormick/python-bods-client/branch/master/graph/badge.svg)](https://codecov.io/gh/ciaran.mccormick/python-bods-client)
+[![Build Status](https://github.com/ciaranmccormick/python-bods-client/workflows/test/badge.svg?branch=master&event=push)](https://github.com/ciaranmccormick/python-bods-client/actions?query=workflow%3Atest)
+[![codecov](https://codecov.io/gh/ciaranmccormick/python-bods-client/branch/master/graph/badge.svg)](https://codecov.io/gh/ciaranmccormick/python-bods-client)
 [![Python Version](https://img.shields.io/pypi/pyversions/bods-client.svg)](https://pypi.org/project/bods-client/)
 
 A Python client for the Department for Transport Bus Open Data Service API
