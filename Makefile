@@ -1,5 +1,6 @@
 SHELL:=/usr/bin/env bash
 
+
 .PHONY: lint
 lint:
 	poetry run mypy bods_client tests/**/*.py
