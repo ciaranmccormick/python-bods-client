@@ -37,11 +37,8 @@ jobs:
 
       - name: Publish to pypi
         shell: bash
-        env:
-          USERNAME: ${{ secrets.PYPI_USERNAME }}
-          PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         run: |
-          poetry config pypi-token.pypi "$PASSWORD"
+          poetry config pypi-token.pypi ${{secrets.PYPI_PASSWORD}}
           poetry build
           poetry publish
 
