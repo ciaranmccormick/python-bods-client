@@ -2,7 +2,7 @@
 client.py a module containing a client for requesting data from the BODS API.
 """
 from datetime import datetime
-from typing import Dict, List, Optional, Union, final
+from typing import Dict, List, Optional, Union
 from google.transit.gtfs_realtime_pb2 import FeedMessage
 
 import requests
@@ -21,7 +21,6 @@ from bods_client.types import AdminAreasType, NOCs
 Params = Dict[str, Union[str, int, List[str], AdminAreasType, NOCs, List[float]]]
 
 
-@final
 class BODSClient:
     """
     Client for requesting data from the BODS API.
