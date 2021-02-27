@@ -18,5 +18,5 @@ package:
 	poetry run safety check --full-report
 
 .PHONY: test
-test: package unit
+test: lint package unit
 
