@@ -9,7 +9,7 @@ description = "A Python client for the Department for Transport Bus Open Data Se
 version = "0.1.0"
 license = "MIT"
 
-authors = []
+authors = ["Ciaran McCormick"]
 
 readme = "README.md"
 
@@ -47,3 +47,4 @@ safety = "^1.10"
 sphinx = "^3.5"
 sphinx-autodoc-typehints = "^1.11"
 tomlkit = "^0.7"
+flake8 = "^3.8.4"
