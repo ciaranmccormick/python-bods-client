@@ -11,7 +11,8 @@ from bods_client.constants import (
     DATASET_STATUSES,
     DATETIME_FORMAT,
     OK_200,
-    V1_FARES_URL, V1_GTFS_RT_URL,
+    V1_FARES_URL,
+    V1_GTFS_RT_URL,
     V1_TIMETABLES_URL,
 )
 from bods_client.models import APIError, APIResponse, Fare, Timetable, BoundingBox
@@ -175,14 +176,15 @@ class BODSClient:
 
         params: Params = {}
         if bounding_box:
-            params["boundingBox"] = bounding_box.list()
+            params["boundingBox"] = bounding_box.csv()
 
         if route_id:
             params["routeId"] = route_id
 
         if start_time_after and start_time_before:
             raise ValueError(
-                "Only one of 'start_time_after' or 'start_time_before' should be specified."
+                "Only one of 'start_time_after' or 'start_time_before' "
+                "should be specified."
             )
 
         if start_time_after:
@@ -196,4 +198,4 @@ class BODSClient:
             message = FeedMessage()
             message.ParseFromString(response.content)
             return message
-        return APIError(status_codes=response.status_code, reason=response.content)
+        return APIError(status_codes=response.status_code, reason=response.text)

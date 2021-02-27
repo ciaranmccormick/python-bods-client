@@ -72,3 +72,6 @@ class BoundingBox(BaseModel):
             self.max_longitude,
             self.max_latitude,
         ]
+
+    def csv(self) -> str:
+        return ",".join(str(f) for f in self.list())
