@@ -3,9 +3,9 @@ client.py a module containing a client for requesting data from the BODS API.
 """
 from datetime import datetime
 from typing import Dict, List, Optional, Union
-from google.transit.gtfs_realtime_pb2 import FeedMessage
 
 import requests
+from google.transit.gtfs_realtime_pb2 import FeedMessage
 
 from bods_client.constants import (
     DATASET_STATUSES,
@@ -13,9 +13,10 @@ from bods_client.constants import (
     OK_200,
     V1_FARES_URL,
     V1_GTFS_RT_URL,
+    V1_SIRI_VM_URL,
     V1_TIMETABLES_URL,
 )
-from bods_client.models import APIError, APIResponse, Fare, Timetable, BoundingBox
+from bods_client.models import APIError, APIResponse, BoundingBox, Fare, Timetable
 from bods_client.types import AdminAreasType, NOCs
 
 Params = Dict[str, Union[str, int, List[str], AdminAreasType, NOCs, List[float]]]
@@ -54,7 +55,8 @@ class BODSClient:
         limit: int = 25,
         offset: int = 0,
     ) -> Union[APIResponse, APIError]:
-        """Fetches the data sets currently available in the BODS database.
+        """
+        Fetches the data sets currently available in the BODS database.
 
         This only returns meta data about a data set including a url to
         the actual data set.
@@ -129,14 +131,29 @@ class BODSClient:
             return APIResponse(count=1, results=results)
         return APIError(status_codes=response.status_code, reason=response.content)
 
-    def get_fare_datasets(
+    def get_fares_datasets(
         self,
         nocs: Optional[NOCs] = None,
         status: Optional[str] = None,
         bounding_box: Optional[BoundingBox] = None,
         limit: int = 25,
         offset: int = 0,
-    ):
+    ) -> Union[APIResponse, APIError]:
+        """
+        Fetches the fares data sets currently available in the BODS database.
+
+        This only returns meta data about a fares data set including a url to
+        the actual data set.
+
+        Args:
+            nocs: A list of National Operator Codes.
+            status: Limit data sets with a specific status of published, error, expired,
+                inactive.
+            bounding_box: Limit data sets to those within the BoundingBox.
+            limit: Maximum number of results to return per page.
+            offset: Number to offset results by.
+
+        """
         params: Params = {"limit": limit, "offset": offset}
 
         if nocs:
@@ -157,13 +174,62 @@ class BODSClient:
             return APIResponse(**response.json())
         return APIError(status=response.status_code, reason=response.content)
 
-    def get_fare_dataset(self, dataset_id: int) -> Union[APIResponse, APIError]:
+    def get_fares_dataset(self, dataset_id: int) -> Union[APIResponse, APIError]:
+        """
+        Fetches a single fares data sets currently available in the BODS database.
+        """
         url = V1_FARES_URL + f"/{dataset_id}"
         response = self._make_request(url)
         if response.status_code == 200:
             results = [Fare(**response.json())]
             return APIResponse(count=1, results=results)
         return APIError(status_codes=response.status_code, reason=response.content)
+
+    def get_siri_vm_data_feed(
+        self,
+        bounding_box: Optional[BoundingBox] = None,
+        operator_refs: Optional[NOCs] = None,
+        line_ref: Optional[str] = None,
+        producer_ref: Optional[str] = None,
+        origin_ref: Optional[str] = None,
+        destinaton_ref: Optional[str] = None,
+    ) -> Union[bytes, APIError]:
+        """
+        Returns a SIRI-VM byte string representation of vehicles currently providing an
+        Automatic Vehicle Locations in BODS.
+
+        Args:
+            bounding_box: Limit vehicles to those within the BoundingBox.
+            operator_refs: Limit vehicles to only certain operators.
+            line_ref: Limit vehicles to those on a certain line.
+            producer_ref: Limit vehicles to created by a certain producer.
+            origin_ref: Limit vehicles to those with a certain origin.
+            destinaton_ref: Limit vehicles to those heading for a certain destination.
+        """
+
+        params: Params = {}
+        if bounding_box:
+            params["boundingBox"] = bounding_box.csv()
+
+        if operator_refs:
+            params["operatorRef"] = operator_refs
+
+        if line_ref:
+            params["lineRef"] = line_ref
+
+        if producer_ref:
+            params["producerRef"] = producer_ref
+
+        if origin_ref:
+            params["originRef"] = origin_ref
+
+        if destinaton_ref:
+            params["destinationRef"] = destinaton_ref
+
+        response = self._make_request(V1_SIRI_VM_URL, params=params)
+        if response.status_code == OK_200:
+            return response.content
+        return APIError(status_codes=response.status_code, reason=response.text)
 
     def get_gtfs_rt_data_feed(
         self,
@@ -173,6 +239,18 @@ class BODSClient:
         start_time_before: Optional[datetime] = None,
     ) -> Union[FeedMessage, APIError]:
 
+        """
+        Returns a FeedMessage of vehicles currently providing Automatic Vehicle
+        Locations in BODS.
+
+        Args:
+            bounding_box: Limit vehicles to those within the BoundingBox.
+            route_id: Limit vehicles to those with this route id.
+            start_time_after: Limit vehicles to those with start time after this
+            datetime.
+            start_time_before: Limit vehicles to with the start time before this
+            datetime.
+        """
         params: Params = {}
         if bounding_box:
             params["boundingBox"] = bounding_box.csv()
