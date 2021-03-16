@@ -1,14 +1,19 @@
+from unittest.mock import MagicMock, patch
+
+import pytest
+from requests import Response
+
+from bods_client.client import BODSClient
+from bods_client.constants import (
+    V1_FARES_URL,
+    V1_GTFS_RT_URL,
+    V1_SIRI_VM_URL,
+    V1_TIMETABLES_URL,
+)
 from bods_client.models.avl import GTFSRTParams, SIRIVMParams
 from bods_client.models.base import BoundingBox
 from bods_client.models.fares import FaresParams
 from bods_client.models.timetables import TimetableParams
-from bods_client.constants import V1_FARES_URL, V1_GTFS_RT_URL, V1_SIRI_VM_URL, V1_TIMETABLES_URL
-from unittest.mock import MagicMock, patch
-import pytest
-
-from requests import Response
-
-from bods_client.client import BODSClient
 
 
 @patch("bods_client.client.requests")
@@ -179,4 +184,3 @@ def test_get_gtfs_rt_bounding_box(mrequests):
     client.get_gtfs_rt_data_feed(params=params)
     expected_params = {"boundingBox": bounding_box.csv(), "routeId": "51"}
     mrequests.assert_called_once_with(V1_GTFS_RT_URL, params=expected_params)
-

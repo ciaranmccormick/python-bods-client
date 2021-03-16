@@ -25,4 +25,3 @@ class FaresResponse(BaseAPIResponse):
 class FaresParams(BaseAPIParams, BoundingBoxMixin):
     class Config(BaseAPIParams.Config):
         pass
-

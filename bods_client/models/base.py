@@ -75,7 +75,7 @@ class BoundingBoxMixin(BaseModel):
     def dict(self, *args, **kwargs):
         d = super().dict(*args, **kwargs)
 
-        if "boundingBox" in d:
+        if "boundingBox" in d and self.bounding_box is not None:
             d["boundingBox"] = self.bounding_box.csv()
 
         return d
