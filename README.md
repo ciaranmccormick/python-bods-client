@@ -25,7 +25,7 @@ using the `get_gtfs_rt_data_feed` method with a boundng box.
 ```python
 
 from bods_client.client import BODSClient
-from bods_client.models import BoundingBox
+from bods_client.models import BoundingBox, GTFSRTParams
 
 # An API key can be obtained by registering with the Bus Open Data Service
 # https://data.bus-data.dft.gov.uk/account/signup/
@@ -33,7 +33,8 @@ from bods_client.models import BoundingBox
 
 >> bods = BODSClient(api_key=API_KEY)
 >> box = BoundingBox(min_longitude=-0.54, min_latitude=51.26, max_longitude=0.27, max_latitide=51.75)
->> message = bods.get_gtfs_rt_data_feed(bounding_box=box)
+>> params = GTFSRTParams(bounding_box=box)
+>> message = bods.get_gtfs_rt_data_feed(params=params)
 >> message.entity[0]
 id: "421354378097713049"
 vehicle {
@@ -57,6 +58,37 @@ vehicle {
 This returns a `google.transit.gtfs_realtime_pb2.FeedMessage` object. More details about
 General Transit Feed Specification Realtime Transit (GTFS-RT) can be found
 [here](https://developers.google.com/transit/gtfs-realtime/).
+
+
+### SIRI VM
+
+Vehicle locations are also provided in the SIRI-VM XML format using the
+`get_siri_vm_data_feed` method. The data can then parsed using an xml
+parser library such as `lxml`.
+
+```python
+
+from bods_client.client import BODSClient
+from bods_client.models import BoundingBox, SIRIVMParams
+from lxml import etree
+
+# An API key can be obtained by registering with the Bus Open Data Service
+# https://data.bus-data.dft.gov.uk/account/signup/
+>> API_KEY = "api-key"
+
+>> bods = BODSClient(api_key=API_KEY)
+>> box = BoundingBox(min_longitude=-0.54, min_latitude=51.26, max_longitude=0.27, 
+  max_latitide=51.75)
+>> params = SIRIVMParams(bounding_box=box)
+>> siri = bods.get_siri_vm_data_feed(params=params)
+>> siri
+b'<Siri xmlns="http://www.siri.org.uk/siri" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.siri.org.uk/siri http://www.siri.org.uk/schema/2.0/xsd/siri.xsd" version="2.0"><ServiceDelivery><ResponseTimestamp>2021-03-16T20:21:25.019277+00:00</ResponseTimestamp><ProducerRef>ItoWorld</ProducerRef><VehicleMonitoringDelivery><ResponseTimestamp>2021-03-16T20:21:25.019277+00:00</ResponseTimestamp><RequestMessageRef>d497da8c-1f05-4db0-8680-dadfb22939b5</RequestMessageRef><ValidUntil>2021-03-16T20:26:25.019277+00:00</ValidUntil>
+...
+<DriverRef>111133</DriverRef></VehicleJourney></Extensions></VehicleActivity></VehicleMonitoringDelivery></ServiceDelivery></Siri>'
+>> xml = etree.parse(siri)
+```
+
+Details about the SIRI specification can be found [here](http://www.transmodel-cen.eu/standards/siri/).
 
 
 ## License

@@ -1,25 +1,29 @@
 """
 client.py a module containing a client for requesting data from the BODS API.
 """
-from datetime import datetime
-from typing import Dict, List, Optional, Union
+import json
+from typing import Optional, Union
 
 import requests
 from google.transit.gtfs_realtime_pb2 import FeedMessage
 
 from bods_client.constants import (
-    DATASET_STATUSES,
-    DATETIME_FORMAT,
     OK_200,
     V1_FARES_URL,
     V1_GTFS_RT_URL,
     V1_SIRI_VM_URL,
     V1_TIMETABLES_URL,
 )
-from bods_client.models import APIError, APIResponse, BoundingBox, Fare, Timetable
-from bods_client.types import AdminAreasType, NOCs
-
-Params = Dict[str, Union[str, int, List[str], AdminAreasType, NOCs, List[float]]]
+from bods_client.models import (
+    APIError,
+    Fares,
+    FaresResponse,
+    Timetable,
+    TimetableParams,
+    TimetableResponse,
+)
+from bods_client.models.avl import GTFSRTParams, SIRIVMParams
+from bods_client.models.fares import FaresParams
 
 
 class BODSClient:
@@ -42,19 +46,8 @@ class BODSClient:
         return requests.get(path, *args, **kwargs)
 
     def get_timetable_datasets(
-        self,
-        admin_areas: Optional[AdminAreasType] = None,
-        nocs: Optional[NOCs] = None,
-        status: Optional[str] = None,
-        search: Optional[str] = None,
-        modified_date: Optional[datetime] = None,
-        start_date_start: Optional[datetime] = None,
-        start_date_end: Optional[datetime] = None,
-        end_date_start: Optional[datetime] = None,
-        end_date_end: Optional[datetime] = None,
-        limit: int = 25,
-        offset: int = 0,
-    ) -> Union[APIResponse, APIError]:
+        self, params: Optional[TimetableParams] = None
+    ) -> Union[TimetableResponse, APIError]:
         """
         Fetches the data sets currently available in the BODS database.
 
@@ -65,9 +58,9 @@ class BODSClient:
             admin_areas: A list of NPTG ATCO Area codes.
             nocs: A list of National Operator Codes.
             status: Limit data sets with a specific status of published, error, expired,
-                inactive.
+            inactive.
             search: Return data sets with search term in the data set name, data set.
-                description, organisation name, or admin name.
+            description, organisation name, or admin name.
             modified_date: Get data sets created/updated after this date.
             start_date_start: Limit data sets to those with start dates after this date.
             start_date_end: Limit date sets to those with start dates before this date.
@@ -76,46 +69,22 @@ class BODSClient:
             limit: Maximum number of results to return per page.
             offset: Number to offset results by.
         """
-        params: Params = {"offset": offset, "limit": limit}
 
-        if admin_areas:
-            params["adminAreas"] = admin_areas
+        if params is None:
+            params = TimetableParams()
 
-        if nocs:
-            params["noc"] = nocs
-
-        if status:
-            assert (
-                status in DATASET_STATUSES
-            ), f"`status` must be one of {','.join(DATASET_STATUSES)}"
-            params["status"] = status
-
-        if search:
-            params["search"] = search
-
-        if modified_date:
-            params["modifiedDate"] = modified_date.strftime(DATETIME_FORMAT)
-
-        if start_date_start:
-            params["startDateStart"] = start_date_start.strftime(DATETIME_FORMAT)
-
-        if start_date_end:
-            params["startDateEnd"] = start_date_end.strftime(DATETIME_FORMAT)
-
-        if end_date_start:
-            params["endDateStart"] = end_date_start.strftime(DATETIME_FORMAT)
-
-        if end_date_end:
-            params["endDateEnd"] = end_date_end.strftime(DATETIME_FORMAT)
-
+        params = json.loads(params.json(by_alias=True, exclude_none=True))
         response = self._make_request(V1_TIMETABLES_URL, params=params)
-        if response.status_code == OK_200:
-            return APIResponse(**response.json())
 
+        if response.status_code == OK_200:
+            return TimetableResponse(**response.json())
         return APIError(status_code=response.status_code, reason=response.content)
 
-    def get_timetable_dataset(self, dataset_id: int) -> Union[APIResponse, APIError]:
-        """Get a single timetable dataset.
+    def get_timetable_dataset(
+        self, dataset_id: int
+    ) -> Union[TimetableResponse, APIError]:
+        """
+        Get a single timetable dataset.
 
         Args:
             dataset_id: The id of the timetable data set.
@@ -126,19 +95,17 @@ class BODSClient:
 
         url = V1_TIMETABLES_URL + f"/{dataset_id}"
         response = self._make_request(url)
+
         if response.status_code == 200:
             results = [Timetable(**response.json())]
-            return APIResponse(count=1, results=results)
-        return APIError(status_codes=response.status_code, reason=response.content)
+            return TimetableResponse(count=1, results=results)
+
+        return APIError(status_code=response.status_code, reason=response.content)
 
     def get_fares_datasets(
         self,
-        nocs: Optional[NOCs] = None,
-        status: Optional[str] = None,
-        bounding_box: Optional[BoundingBox] = None,
-        limit: int = 25,
-        offset: int = 0,
-    ) -> Union[APIResponse, APIError]:
+        params: Optional[FaresParams] = None,
+    ) -> Union[FaresResponse, APIError]:
         """
         Fetches the fares data sets currently available in the BODS database.
 
@@ -148,51 +115,35 @@ class BODSClient:
         Args:
             nocs: A list of National Operator Codes.
             status: Limit data sets with a specific status of published, error, expired,
-                inactive.
+            inactive.
             bounding_box: Limit data sets to those within the BoundingBox.
             limit: Maximum number of results to return per page.
             offset: Number to offset results by.
 
         """
-        params: Params = {"limit": limit, "offset": offset}
+        if params is None:
+            params = FaresParams()
 
-        if nocs:
-            params["noc"] = nocs
-
-        if status:
-            assert (
-                status in DATASET_STATUSES
-            ), f"`status` must be one of {','.join(DATASET_STATUSES)}"
-            params["status"] = status
-
-        if bounding_box:
-            params["boundingBox"] = bounding_box.list()
-
+        params = json.loads(params.json(by_alias=True, exclude_none=True))
         response = self._make_request(V1_FARES_URL, params=params)
-
         if response.status_code == 200:
-            return APIResponse(**response.json())
-        return APIError(status=response.status_code, reason=response.content)
+            return FaresResponse(**response.json())
+        return APIError(status_code=response.status_code, reason=response.content)
 
-    def get_fares_dataset(self, dataset_id: int) -> Union[APIResponse, APIError]:
+    def get_fares_dataset(self, dataset_id: int) -> Union[FaresResponse, APIError]:
         """
         Fetches a single fares data sets currently available in the BODS database.
         """
         url = V1_FARES_URL + f"/{dataset_id}"
         response = self._make_request(url)
         if response.status_code == 200:
-            results = [Fare(**response.json())]
-            return APIResponse(count=1, results=results)
-        return APIError(status_codes=response.status_code, reason=response.content)
+            results = [Fares(**response.json())]
+            return FaresResponse(count=1, results=results)
+        return APIError(status_code=response.status_code, reason=response.content)
 
     def get_siri_vm_data_feed(
         self,
-        bounding_box: Optional[BoundingBox] = None,
-        operator_refs: Optional[NOCs] = None,
-        line_ref: Optional[str] = None,
-        producer_ref: Optional[str] = None,
-        origin_ref: Optional[str] = None,
-        destinaton_ref: Optional[str] = None,
+        params: Optional[SIRIVMParams] = None,
     ) -> Union[bytes, APIError]:
         """
         Returns a SIRI-VM byte string representation of vehicles currently providing an
@@ -207,36 +158,17 @@ class BODSClient:
             destinaton_ref: Limit vehicles to those heading for a certain destination.
         """
 
-        params: Params = {}
-        if bounding_box:
-            params["boundingBox"] = bounding_box.csv()
+        if params is None:
+            params = SIRIVMParams()
 
-        if operator_refs:
-            params["operatorRef"] = operator_refs
-
-        if line_ref:
-            params["lineRef"] = line_ref
-
-        if producer_ref:
-            params["producerRef"] = producer_ref
-
-        if origin_ref:
-            params["originRef"] = origin_ref
-
-        if destinaton_ref:
-            params["destinationRef"] = destinaton_ref
-
+        params = json.loads(params.json(by_alias=True, exclude_none=True))
         response = self._make_request(V1_SIRI_VM_URL, params=params)
         if response.status_code == OK_200:
             return response.content
-        return APIError(status_codes=response.status_code, reason=response.text)
+        return APIError(status_code=response.status_code, reason=response.content)
 
     def get_gtfs_rt_data_feed(
-        self,
-        bounding_box: Optional[BoundingBox] = None,
-        route_id: Optional[str] = None,
-        start_time_after: Optional[datetime] = None,
-        start_time_before: Optional[datetime] = None,
+            self, params: Optional[GTFSRTParams] = None
     ) -> Union[FeedMessage, APIError]:
 
         """
@@ -251,28 +183,13 @@ class BODSClient:
             start_time_before: Limit vehicles to with the start time before this
             datetime.
         """
-        params: Params = {}
-        if bounding_box:
-            params["boundingBox"] = bounding_box.csv()
+        if params is None:
+            params = GTFSRTParams()
 
-        if route_id:
-            params["routeId"] = route_id
-
-        if start_time_after and start_time_before:
-            raise ValueError(
-                "Only one of 'start_time_after' or 'start_time_before' "
-                "should be specified."
-            )
-
-        if start_time_after:
-            params["startTimeAfter"] = int(start_time_after.timestamp())
-
-        if start_time_before:
-            params["startTimeBefore"] = int(start_time_before.timestamp())
-
+        params = json.loads(params.json(by_alias=True, exclude_none=True))
         response = self._make_request(V1_GTFS_RT_URL, params=params)
         if response.status_code == OK_200:
             message = FeedMessage()
             message.ParseFromString(response.content)
             return message
-        return APIError(status_codes=response.status_code, reason=response.text)
+        return APIError(status_code=response.status_code, reason=response.content)
