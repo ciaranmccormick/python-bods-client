@@ -4,12 +4,7 @@ import pytest
 from requests import Response
 
 from bods_client.client import BODSClient
-from bods_client.constants import (
-    V1_FARES_URL,
-    V1_GTFS_RT_URL,
-    V1_SIRI_VM_URL,
-    V1_TIMETABLES_URL,
-)
+from bods_client.constants import V1_FARES_URL, V1_TIMETABLES_URL
 from bods_client.models.avl import GTFSRTParams, SIRIVMParams
 from bods_client.models.base import BoundingBox
 from bods_client.models.fares import FaresParams
@@ -57,7 +52,7 @@ def test_get_timetable_datasets_no_params(mrequests):
     client.get_timetable_datasets()
 
     expected_params = {"limit": 25, "offset": 0}
-    mrequests.assert_called_once_with(V1_TIMETABLES_URL, params=expected_params)
+    mrequests.assert_called_once_with(client.timetable_endpoint, params=expected_params)
 
 
 @patch("bods_client.client.BODSClient._make_request")
@@ -71,14 +66,14 @@ def test_get_timetable_datasets_with_params(mrequests):
     client.get_timetable_datasets(params=params)
 
     expected_params = {"limit": 10, "offset": 0, "noc": ["NT"]}
-    mrequests.assert_called_once_with(V1_TIMETABLES_URL, params=expected_params)
+    mrequests.assert_called_once_with(client.timetable_endpoint, params=expected_params)
 
 
 @pytest.mark.parametrize(
     ("id_", "method", "expected_url"),
     [
-        (5, "get_timetable_dataset", V1_TIMETABLES_URL + "/5"),
-        (5, "get_fares_dataset", V1_FARES_URL + "/5"),
+        (5, "get_timetable_dataset", V1_TIMETABLES_URL + "/5/"),
+        (5, "get_fares_dataset", V1_FARES_URL + "/5/"),
     ],
 )
 @patch("bods_client.client.BODSClient._make_request")
@@ -102,7 +97,7 @@ def test_get_fares_datasets_no_params(mrequests):
     client.get_fares_datasets()
 
     expected_params = {"limit": 25, "offset": 0}
-    mrequests.assert_called_once_with(V1_FARES_URL, params=expected_params)
+    mrequests.assert_called_once_with(client.fares_endpoint, params=expected_params)
 
 
 @patch("bods_client.client.BODSClient._make_request")
@@ -123,7 +118,7 @@ def test_get_fares_datasets_bounding_box(mrequests):
     client.get_fares_datasets(params=params)
 
     expected_params = {"limit": 10, "offset": 0, "boundingBox": bounding_box.csv()}
-    mrequests.assert_called_once_with(V1_FARES_URL, params=expected_params)
+    mrequests.assert_called_once_with(client.fares_endpoint, params=expected_params)
 
 
 @patch("bods_client.client.BODSClient._make_request")
@@ -143,7 +138,7 @@ def test_get_siri_vm_bounding_box(mrequests):
     params = SIRIVMParams(bounding_box=bounding_box)
     client.get_siri_vm_data_feed(params=params)
     expected_params = {"boundingBox": bounding_box.csv()}
-    mrequests.assert_called_once_with(V1_SIRI_VM_URL, params=expected_params)
+    mrequests.assert_called_once_with(client.siri_vm_endpoint, params=expected_params)
 
 
 @patch("bods_client.client.BODSClient._make_request")
@@ -153,7 +148,7 @@ def test_get_siri_vm_no_params(mrequests):
     key = "apikey"
     client = BODSClient(api_key=key)
     client.get_siri_vm_data_feed()
-    mrequests.assert_called_once_with(V1_SIRI_VM_URL, params={})
+    mrequests.assert_called_once_with(client.siri_vm_endpoint, params={})
 
 
 @patch("bods_client.client.BODSClient._make_request")
@@ -163,7 +158,7 @@ def test_get_gtfs_rt_no_params(mrequests):
     key = "apikey"
     client = BODSClient(api_key=key)
     client.get_gtfs_rt_data_feed()
-    mrequests.assert_called_once_with(V1_GTFS_RT_URL, params={})
+    mrequests.assert_called_once_with(client.gtfs_rt_endpoint, params={})
 
 
 @patch("bods_client.client.BODSClient._make_request")
@@ -183,4 +178,4 @@ def test_get_gtfs_rt_bounding_box(mrequests):
     params = GTFSRTParams(bounding_box=bounding_box, route_id="51")
     client.get_gtfs_rt_data_feed(params=params)
     expected_params = {"boundingBox": bounding_box.csv(), "routeId": "51"}
-    mrequests.assert_called_once_with(V1_GTFS_RT_URL, params=expected_params)
+    mrequests.assert_called_once_with(client.gtfs_rt_endpoint, params=expected_params)

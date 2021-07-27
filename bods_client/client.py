@@ -8,11 +8,12 @@ import requests
 from google.transit.gtfs_realtime_pb2 import FeedMessage
 
 from bods_client.constants import (
+    BODS_API_URL,
+    FARES_PATH,
+    GTFS_RT_PATH,
     OK_200,
-    V1_FARES_URL,
-    V1_GTFS_RT_URL,
-    V1_SIRI_VM_URL,
-    V1_TIMETABLES_URL,
+    SIRI_VM_PATH,
+    TIMETABLES_PATH,
 )
 from bods_client.models import (
     APIError,
@@ -31,8 +32,13 @@ class BODSClient:
     Client for requesting data from the BODS API.
     """
 
-    def __init__(self, api_key: str):
+    def __init__(self, api_key: str, base_url: str = BODS_API_URL, version: str = "v1"):
         self.api_key = api_key
+        if base_url.endswith("/"):
+            self.base_url = base_url[:-1]
+        else:
+            self.base_url = base_url
+        self.version = version
 
     def _make_request(self, path: str, *args, **kwargs):
         if "timeout" not in kwargs:
@@ -44,6 +50,22 @@ class BODSClient:
             kwargs["params"] = {"api_key": self.api_key}
 
         return requests.get(path, *args, **kwargs)
+
+    @property
+    def timetable_endpoint(self):
+        return f"{self.base_url}/{self.version}/{TIMETABLES_PATH}/"
+
+    @property
+    def siri_vm_endpoint(self):
+        return f"{self.base_url}/{self.version}/{SIRI_VM_PATH}/"
+
+    @property
+    def gtfs_rt_endpoint(self):
+        return f"{self.base_url}/{self.version}/{GTFS_RT_PATH}/"
+
+    @property
+    def fares_endpoint(self):
+        return f"{self.base_url}/{self.version}/{FARES_PATH}/"
 
     def get_timetable_datasets(
         self, params: Optional[TimetableParams] = None
@@ -74,7 +96,7 @@ class BODSClient:
             params = TimetableParams()
 
         params = json.loads(params.json(by_alias=True, exclude_none=True))
-        response = self._make_request(V1_TIMETABLES_URL, params=params)
+        response = self._make_request(self.timetable_endpoint, params=params)
 
         if response.status_code == OK_200:
             return TimetableResponse(**response.json())
@@ -93,7 +115,7 @@ class BODSClient:
             timetable: A Timetable object with the data set details.
         """
 
-        url = V1_TIMETABLES_URL + f"/{dataset_id}"
+        url = self.timetable_endpoint + f"{dataset_id}/"
         response = self._make_request(url)
 
         if response.status_code == 200:
@@ -125,7 +147,7 @@ class BODSClient:
             params = FaresParams()
 
         params = json.loads(params.json(by_alias=True, exclude_none=True))
-        response = self._make_request(V1_FARES_URL, params=params)
+        response = self._make_request(self.fares_endpoint, params=params)
         if response.status_code == 200:
             return FaresResponse(**response.json())
         return APIError(status_code=response.status_code, reason=response.content)
@@ -134,7 +156,7 @@ class BODSClient:
         """
         Fetches a single fares data sets currently available in the BODS database.
         """
-        url = V1_FARES_URL + f"/{dataset_id}"
+        url = self.fares_endpoint + f"{dataset_id}/"
         response = self._make_request(url)
         if response.status_code == 200:
             results = [Fares(**response.json())]
@@ -162,7 +184,7 @@ class BODSClient:
             params = SIRIVMParams()
 
         params = json.loads(params.json(by_alias=True, exclude_none=True))
-        response = self._make_request(V1_SIRI_VM_URL, params=params)
+        response = self._make_request(self.siri_vm_endpoint, params=params)
         if response.status_code == OK_200:
             return response.content
         return APIError(status_code=response.status_code, reason=response.content)
@@ -187,7 +209,7 @@ class BODSClient:
             params = GTFSRTParams()
 
         params = json.loads(params.json(by_alias=True, exclude_none=True))
-        response = self._make_request(V1_GTFS_RT_URL, params=params)
+        response = self._make_request(self.gtfs_rt_endpoint, params=params)
         if response.status_code == OK_200:
             message = FeedMessage()
             message.ParseFromString(response.content)
