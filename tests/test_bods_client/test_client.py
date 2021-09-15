@@ -11,6 +11,13 @@ from bods_client.models.fares import FaresParams
 from bods_client.models.timetables import TimetableParams
 
 
+def test_url_with_trailing_slash():
+    key = "apikey"
+    url = "http://fakeurl.url/"
+    client = BODSClient(api_key=key, base_url=url)
+    assert client.base_url == url[:-1]
+
+
 @patch("bods_client.client.requests")
 def test_client_make_request(mrequests):
     key = "apikey"
@@ -85,6 +92,54 @@ def test_get_dataset(mrequests, id_, method, expected_url):
     client = BODSClient(api_key=key)
     getattr(client, method)(dataset_id=id_)
     mrequests.assert_called_once_with(expected_url)
+
+
+def test_get_timetable_200(timetable_response):
+    dataset_id = 5
+    expected_url = V1_TIMETABLES_URL + f"/{dataset_id}/"
+
+    key = "apikey"
+    client = BODSClient(api_key=key)
+    with patch("bods_client.client.BODSClient._make_request") as mrequests:
+        mrequests.return_value = timetable_response
+        client.get_timetable_dataset(dataset_id=dataset_id)
+        mrequests.assert_called_once_with(expected_url)
+
+
+def test_get_timetable_list_200(timetable_list_response):
+    expected_url = V1_TIMETABLES_URL + "/"
+
+    key = "apikey"
+    client = BODSClient(api_key=key)
+    with patch("bods_client.client.BODSClient._make_request") as mrequests:
+        mrequests.return_value = timetable_list_response
+        client.get_timetable_datasets()
+        expected_params = {"limit": 25, "offset": 0}
+        mrequests.assert_called_once_with(expected_url, params=expected_params)
+
+
+def test_get_fare_200(fare_response):
+    dataset_id = 5
+    expected_url = V1_FARES_URL + f"/{dataset_id}/"
+
+    key = "apikey"
+    client = BODSClient(api_key=key)
+    with patch("bods_client.client.BODSClient._make_request") as mrequests:
+        mrequests.return_value = fare_response
+        client.get_fares_dataset(dataset_id=dataset_id)
+        mrequests.assert_called_once_with(expected_url)
+
+
+def test_get_fare_list_200(fare_list_response):
+    expected_url = V1_FARES_URL + "/"
+
+    key = "apikey"
+    client = BODSClient(api_key=key)
+    with patch("bods_client.client.BODSClient._make_request") as mrequests:
+        mrequests.return_value = fare_list_response
+        client.get_fares_datasets()
+        expected_params = {"limit": 25, "offset": 0}
+        mrequests.assert_called_once_with(expected_url, params=expected_params)
 
 
 @patch("bods_client.client.BODSClient._make_request")
@@ -179,3 +234,17 @@ def test_get_gtfs_rt_bounding_box(mrequests):
     client.get_gtfs_rt_data_feed(params=params)
     expected_params = {"boundingBox": bounding_box.csv(), "routeId": "51"}
     mrequests.assert_called_once_with(client.gtfs_rt_endpoint, params=expected_params)
+
+
+def test_siri_vm_url():
+    url = "https://fakeurl.zz"
+    expected_endpoint = "/avl/download/bulk_archive"
+    client = BODSClient(api_key="apikey", base_url=url)
+    assert client.siri_vm_zip_endpoint == url + expected_endpoint
+
+
+def test_gtfs_rt_url():
+    url = "https://fakeurl.zz"
+    expected_endpoint = "/avl/download/gtfsrt"
+    client = BODSClient(api_key="apikey", base_url=url)
+    assert client.gtfs_rt_zip_endpoint == url + expected_endpoint
