@@ -1,14 +1,17 @@
 from unittest.mock import MagicMock, patch
 
 import pytest
+from google.transit.gtfs_realtime_pb2 import FeedMessage
 from requests import Response
 
 from bods_client.client import BODSClient
 from bods_client.constants import V1_FARES_URL, V1_TIMETABLES_URL
 from bods_client.models.avl import GTFSRTParams, SIRIVMParams
-from bods_client.models.base import BoundingBox
+from bods_client.models.base import APIError, BoundingBox
 from bods_client.models.fares import FaresParams
 from bods_client.models.timetables import TimetableParams
+
+_MAKE_REQUEST = "bods_client.client.BODSClient._make_request"
 
 
 def test_url_with_trailing_slash():
@@ -236,15 +239,49 @@ def test_get_gtfs_rt_bounding_box(mrequests):
     mrequests.assert_called_once_with(client.gtfs_rt_endpoint, params=expected_params)
 
 
-def test_siri_vm_url():
-    url = "https://fakeurl.zz"
-    expected_endpoint = "/avl/download/bulk_archive"
-    client = BODSClient(api_key="apikey", base_url=url)
-    assert client.siri_vm_zip_endpoint == url + expected_endpoint
+def test_siri_vm_from_archive_200(siri_vm_archive_response):
+    api_key = "api_key"
+    expected_endpoint = "https://data.bus-data.dft.gov.uk/avl/download/bulk_archive"
+    client = BODSClient(api_key=api_key)
+    with patch(_MAKE_REQUEST) as request:
+        request.return_value = siri_vm_archive_response
+        siri = client.get_siri_vm_from_archive()
+        request.assert_called_once_with(expected_endpoint)
+        assert isinstance(siri, bytes)
 
 
-def test_gtfs_rt_url():
-    url = "https://fakeurl.zz"
-    expected_endpoint = "/avl/download/gtfsrt"
-    client = BODSClient(api_key="apikey", base_url=url)
-    assert client.gtfs_rt_zip_endpoint == url + expected_endpoint
+def test_siri_vm_from_archive_error():
+    api_key = "api_key"
+    expected_endpoint = "https://data.bus-data.dft.gov.uk/avl/download/bulk_archive"
+    client = BODSClient(api_key=api_key)
+    with patch(_MAKE_REQUEST) as request:
+        request.return_value = MagicMock(
+            spec=Response, status_code=500, content="Error"
+        )
+        siri = client.get_siri_vm_from_archive()
+        request.assert_called_once_with(expected_endpoint)
+        assert isinstance(siri, APIError)
+
+
+def test_gtfs_rt_from_archive_200(gtfs_rt_archive_response):
+    api_key = "api_key"
+    expected_endpoint = "https://data.bus-data.dft.gov.uk/avl/download/gtfsrt"
+    client = BODSClient(api_key=api_key)
+    with patch(_MAKE_REQUEST) as request:
+        request.return_value = gtfs_rt_archive_response
+        gtfsrt = client.get_gtfs_rt_from_archive()
+        request.assert_called_once_with(expected_endpoint)
+        assert isinstance(gtfsrt, FeedMessage)
+
+
+def test_gtfs_rt_from_archive_error():
+    api_key = "api_key"
+    expected_endpoint = "https://data.bus-data.dft.gov.uk/avl/download/gtfsrt"
+    client = BODSClient(api_key=api_key)
+    with patch(_MAKE_REQUEST) as request:
+        request.return_value = MagicMock(
+            spec=Response, status_code=500, content="Error"
+        )
+        gtfsrt = client.get_gtfs_rt_from_archive()
+        request.assert_called_once_with(expected_endpoint)
+        assert isinstance(gtfsrt, APIError)

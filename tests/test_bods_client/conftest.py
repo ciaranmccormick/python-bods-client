@@ -46,3 +46,19 @@ def fare_list_response():
         response = MagicMock(spec=Response, status_code=200, content=content)
         response.json.return_value = json.loads(content)
         yield response
+
+
+@pytest.fixture()
+def siri_vm_archive_response():
+    archive = DATA_DIR / "sirivm.zip"
+    with archive.open("rb") as f:
+        response = MagicMock(spec=Response, status_code=200, content=f.read())
+        yield response
+
+
+@pytest.fixture()
+def gtfs_rt_archive_response():
+    archive = DATA_DIR / "gtfsrt.zip"
+    with archive.open("rb") as f:
+        response = MagicMock(spec=Response, status_code=200, content=f.read())
+        yield response

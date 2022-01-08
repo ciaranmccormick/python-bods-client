@@ -227,7 +227,6 @@ class BODSClient:
         Automatic Vehicle Location from the bulk download file in BODS.
         """
         response = self._make_request(self.siri_vm_zip_endpoint)
-        print(response.headers["Content-Disposition"])
         if response.status_code == HTTPStatus.OK:
             with zipfile.ZipFile(io.BytesIO(response.content)) as zf:
                 with zf.open("siri.xml") as f:
