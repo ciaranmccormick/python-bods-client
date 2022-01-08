@@ -15,7 +15,7 @@ jobs:
       - name: Setup Python 3
         uses: actions/setup-python@v1
         with:
-          python-version: "3.x"
+          python-version: "3.9"
 
       - name: Install poetry
         run: |
@@ -41,4 +41,3 @@ jobs:
           poetry config pypi-token.pypi ${{secrets.PYPI_PASSWORD}}
           poetry build
           poetry publish
-
