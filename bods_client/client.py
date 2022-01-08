@@ -202,6 +202,25 @@ class BODSClient:
             return response.content
         return APIError(status_code=response.status_code, reason=response.content)
 
+    def get_siri_vm_data_feed_by_id(self, feed_id: int) -> Union[bytes, APIError]:
+        """
+        Returns a SIRI-VM byte string representation of vehicles currently providing an
+        Automatic Vehicle Locations in BODS.
+
+        Args:
+            bounding_box: Limit vehicles to those within the BoundingBox.
+            operator_refs: Limit vehicles to only certain operators.
+            line_ref: Limit vehicles to those on a certain line.
+            producer_ref: Limit vehicles to created by a certain producer.
+            origin_ref: Limit vehicles to those with a certain origin.
+            destinaton_ref: Limit vehicles to those heading for a certain destination.
+        """
+        url = self.siri_vm_endpoint + f"{feed_id}/"
+        response = self._make_request(url)
+        if response.status_code == HTTPStatus.OK:
+            return response.content
+        return APIError(status_code=response.status_code, reason=response.content)
+
     def get_siri_vm_from_archive(self) -> Union[bytes, APIError]:
         """
         Returns a SIRI-VM byte string representation of vehicles currently providing an

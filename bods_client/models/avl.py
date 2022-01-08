@@ -22,6 +22,7 @@ class SIRIVMParams(BaseAVLParams, BoundingBoxMixin):
     producer_ref: Optional[str] = Field(None, alias="producerRef")
     origin_ref: Optional[str] = Field(None, alias="originRef")
     destinaton_ref: Optional[str] = Field(None, alias="destinationRef")
+    vehicle_ref: Optional[str] = Field(None, alias="vehicleRef")
 
 
 class GTFSRTParams(BaseAVLParams, BoundingBoxMixin):
