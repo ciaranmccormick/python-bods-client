@@ -1,14 +1,24 @@
 from unittest.mock import MagicMock, patch
 
 import pytest
+from google.transit.gtfs_realtime_pb2 import FeedMessage
 from requests import Response
 
 from bods_client.client import BODSClient
 from bods_client.constants import V1_FARES_URL, V1_TIMETABLES_URL
 from bods_client.models.avl import GTFSRTParams, SIRIVMParams
-from bods_client.models.base import BoundingBox
+from bods_client.models.base import APIError, BoundingBox
 from bods_client.models.fares import FaresParams
 from bods_client.models.timetables import TimetableParams
+
+_MAKE_REQUEST = "bods_client.client.BODSClient._make_request"
+
+
+def test_url_with_trailing_slash():
+    key = "apikey"
+    url = "http://fakeurl.url/"
+    client = BODSClient(api_key=key, base_url=url)
+    assert client.base_url == url[:-1]
 
 
 @patch("bods_client.client.requests")
@@ -85,6 +95,54 @@ def test_get_dataset(mrequests, id_, method, expected_url):
     client = BODSClient(api_key=key)
     getattr(client, method)(dataset_id=id_)
     mrequests.assert_called_once_with(expected_url)
+
+
+def test_get_timetable_200(timetable_response):
+    dataset_id = 5
+    expected_url = V1_TIMETABLES_URL + f"/{dataset_id}/"
+
+    key = "apikey"
+    client = BODSClient(api_key=key)
+    with patch("bods_client.client.BODSClient._make_request") as mrequests:
+        mrequests.return_value = timetable_response
+        client.get_timetable_dataset(dataset_id=dataset_id)
+        mrequests.assert_called_once_with(expected_url)
+
+
+def test_get_timetable_list_200(timetable_list_response):
+    expected_url = V1_TIMETABLES_URL + "/"
+
+    key = "apikey"
+    client = BODSClient(api_key=key)
+    with patch("bods_client.client.BODSClient._make_request") as mrequests:
+        mrequests.return_value = timetable_list_response
+        client.get_timetable_datasets()
+        expected_params = {"limit": 25, "offset": 0}
+        mrequests.assert_called_once_with(expected_url, params=expected_params)
+
+
+def test_get_fare_200(fare_response):
+    dataset_id = 5
+    expected_url = V1_FARES_URL + f"/{dataset_id}/"
+
+    key = "apikey"
+    client = BODSClient(api_key=key)
+    with patch("bods_client.client.BODSClient._make_request") as mrequests:
+        mrequests.return_value = fare_response
+        client.get_fares_dataset(dataset_id=dataset_id)
+        mrequests.assert_called_once_with(expected_url)
+
+
+def test_get_fare_list_200(fare_list_response):
+    expected_url = V1_FARES_URL + "/"
+
+    key = "apikey"
+    client = BODSClient(api_key=key)
+    with patch("bods_client.client.BODSClient._make_request") as mrequests:
+        mrequests.return_value = fare_list_response
+        client.get_fares_datasets()
+        expected_params = {"limit": 25, "offset": 0}
+        mrequests.assert_called_once_with(expected_url, params=expected_params)
 
 
 @patch("bods_client.client.BODSClient._make_request")
@@ -179,3 +237,51 @@ def test_get_gtfs_rt_bounding_box(mrequests):
     client.get_gtfs_rt_data_feed(params=params)
     expected_params = {"boundingBox": bounding_box.csv(), "routeId": "51"}
     mrequests.assert_called_once_with(client.gtfs_rt_endpoint, params=expected_params)
+
+
+def test_siri_vm_from_archive_200(siri_vm_archive_response):
+    api_key = "api_key"
+    expected_endpoint = "https://data.bus-data.dft.gov.uk/avl/download/bulk_archive"
+    client = BODSClient(api_key=api_key)
+    with patch(_MAKE_REQUEST) as request:
+        request.return_value = siri_vm_archive_response
+        siri = client.get_siri_vm_from_archive()
+        request.assert_called_once_with(expected_endpoint)
+        assert isinstance(siri, bytes)
+
+
+def test_siri_vm_from_archive_error():
+    api_key = "api_key"
+    expected_endpoint = "https://data.bus-data.dft.gov.uk/avl/download/bulk_archive"
+    client = BODSClient(api_key=api_key)
+    with patch(_MAKE_REQUEST) as request:
+        request.return_value = MagicMock(
+            spec=Response, status_code=500, content="Error"
+        )
+        siri = client.get_siri_vm_from_archive()
+        request.assert_called_once_with(expected_endpoint)
+        assert isinstance(siri, APIError)
+
+
+def test_gtfs_rt_from_archive_200(gtfs_rt_archive_response):
+    api_key = "api_key"
+    expected_endpoint = "https://data.bus-data.dft.gov.uk/avl/download/gtfsrt"
+    client = BODSClient(api_key=api_key)
+    with patch(_MAKE_REQUEST) as request:
+        request.return_value = gtfs_rt_archive_response
+        gtfsrt = client.get_gtfs_rt_from_archive()
+        request.assert_called_once_with(expected_endpoint)
+        assert isinstance(gtfsrt, FeedMessage)
+
+
+def test_gtfs_rt_from_archive_error():
+    api_key = "api_key"
+    expected_endpoint = "https://data.bus-data.dft.gov.uk/avl/download/gtfsrt"
+    client = BODSClient(api_key=api_key)
+    with patch(_MAKE_REQUEST) as request:
+        request.return_value = MagicMock(
+            spec=Response, status_code=500, content="Error"
+        )
+        gtfsrt = client.get_gtfs_rt_from_archive()
+        request.assert_called_once_with(expected_endpoint)
+        assert isinstance(gtfsrt, APIError)

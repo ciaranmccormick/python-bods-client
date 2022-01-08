@@ -1,8 +1,12 @@
 """
 client.py a module containing a client for requesting data from the BODS API.
 """
+import io
 import json
+import zipfile
+from http import HTTPStatus
 from typing import Optional, Union
+from urllib.parse import urlparse
 
 import requests
 from google.transit.gtfs_realtime_pb2 import FeedMessage
@@ -11,7 +15,6 @@ from bods_client.constants import (
     BODS_API_URL,
     FARES_PATH,
     GTFS_RT_PATH,
-    OK_200,
     SIRI_VM_PATH,
     TIMETABLES_PATH,
 )
@@ -67,6 +70,16 @@ class BODSClient:
     def fares_endpoint(self):
         return f"{self.base_url}/{self.version}/{FARES_PATH}/"
 
+    @property
+    def siri_vm_zip_endpoint(self) -> str:
+        parsed_url = urlparse(self.base_url)
+        return f"{parsed_url.scheme}://{parsed_url.hostname}/avl/download/bulk_archive"
+
+    @property
+    def gtfs_rt_zip_endpoint(self) -> str:
+        parsed_url = urlparse(self.base_url)
+        return f"{parsed_url.scheme}://{parsed_url.hostname}/avl/download/gtfsrt"
+
     def get_timetable_datasets(
         self, params: Optional[TimetableParams] = None
     ) -> Union[TimetableResponse, APIError]:
@@ -98,7 +111,7 @@ class BODSClient:
         params = json.loads(params.json(by_alias=True, exclude_none=True))
         response = self._make_request(self.timetable_endpoint, params=params)
 
-        if response.status_code == OK_200:
+        if response.status_code == HTTPStatus.OK:
             return TimetableResponse(**response.json())
         return APIError(status_code=response.status_code, reason=response.content)
 
@@ -118,7 +131,7 @@ class BODSClient:
         url = self.timetable_endpoint + f"{dataset_id}/"
         response = self._make_request(url)
 
-        if response.status_code == 200:
+        if response.status_code == HTTPStatus.OK:
             results = [Timetable(**response.json())]
             return TimetableResponse(count=1, results=results)
 
@@ -185,12 +198,43 @@ class BODSClient:
 
         params = json.loads(params.json(by_alias=True, exclude_none=True))
         response = self._make_request(self.siri_vm_endpoint, params=params)
-        if response.status_code == OK_200:
+        if response.status_code == HTTPStatus.OK:
             return response.content
         return APIError(status_code=response.status_code, reason=response.content)
 
+    def get_siri_vm_data_feed_by_id(self, feed_id: int) -> Union[bytes, APIError]:
+        """
+        Returns a SIRI-VM byte string representation of vehicles currently providing an
+        Automatic Vehicle Locations in BODS.
+
+        Args:
+            bounding_box: Limit vehicles to those within the BoundingBox.
+            operator_refs: Limit vehicles to only certain operators.
+            line_ref: Limit vehicles to those on a certain line.
+            producer_ref: Limit vehicles to created by a certain producer.
+            origin_ref: Limit vehicles to those with a certain origin.
+            destinaton_ref: Limit vehicles to those heading for a certain destination.
+        """
+        url = self.siri_vm_endpoint + f"{feed_id}/"
+        response = self._make_request(url)
+        if response.status_code == HTTPStatus.OK:
+            return response.content
+        return APIError(status_code=response.status_code, reason=response.content)
+
+    def get_siri_vm_from_archive(self) -> Union[bytes, APIError]:
+        """
+        Returns a SIRI-VM byte string representation of vehicles currently providing an
+        Automatic Vehicle Location from the bulk download file in BODS.
+        """
+        response = self._make_request(self.siri_vm_zip_endpoint)
+        if response.status_code == HTTPStatus.OK:
+            with zipfile.ZipFile(io.BytesIO(response.content)) as zf:
+                with zf.open("siri.xml") as f:
+                    return f.read()
+        return APIError(status_code=response.status_code, reason=response.content)
+
     def get_gtfs_rt_data_feed(
-            self, params: Optional[GTFSRTParams] = None
+        self, params: Optional[GTFSRTParams] = None
     ) -> Union[FeedMessage, APIError]:
 
         """
@@ -210,8 +254,22 @@ class BODSClient:
 
         params = json.loads(params.json(by_alias=True, exclude_none=True))
         response = self._make_request(self.gtfs_rt_endpoint, params=params)
-        if response.status_code == OK_200:
+        if response.status_code == HTTPStatus.OK:
             message = FeedMessage()
             message.ParseFromString(response.content)
             return message
+        return APIError(status_code=response.status_code, reason=response.content)
+
+    def get_gtfs_rt_from_archive(self) -> Union[FeedMessage, APIError]:
+        """
+        Returns a FeedMessage of vehicles currently providing Automatic Vehicle
+        Locations bulk download URL in BODS.
+        """
+        response = self._make_request(self.gtfs_rt_zip_endpoint)
+        if response.status_code == HTTPStatus.OK:
+            with zipfile.ZipFile(io.BytesIO(response.content)) as zf:
+                with zf.open("gtfsrt.bin") as f:
+                    message = FeedMessage()
+                    message.ParseFromString(f.read())
+                    return message
         return APIError(status_code=response.status_code, reason=response.content)

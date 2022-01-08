@@ -1,4 +1,5 @@
-BODS_API_URL = "https://data.bus-data.dft.gov.uk/api"
+BODS_HOST = "https://data.bus-data.dft.gov.uk"
+BODS_API_URL = BODS_HOST + "/api"
 
 V1 = BODS_API_URL + "/v1"
 

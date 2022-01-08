@@ -1,0 +1,2118 @@
+{
+  "count": 1889,
+  "next": "https://data.bus-data.dft.gov.uk/api/v1/dataset/?limit=1&offset=1",
+  "previous": null,
+  "results": [
+    {
+      "id": 6,
+      "created": "2020-01-30T13:56:34+00:00",
+      "modified": "2020-11-19T11:53:02+00:00",
+      "operatorName": "Stagecoach",
+      "noc": [
+        "BNDY",
+        "CLTL",
+        "ELBG",
+        "EMSY",
+        "SBLB",
+        "SCMN",
+        "SWIG",
+        "SCLI",
+        "SCGH",
+        "SYRK",
+        "YSYC",
+        "SCNE",
+        "SCTE",
+        "SCSS",
+        "SCSU",
+        "SCHA",
+        "SCNS",
+        "NFKG",
+        "SCGS",
+        "STWS",
+        "SSWN",
+        "SCGL",
+        "SSWL",
+        "SCEB",
+        "SCHT",
+        "SCEK",
+        "SCHM",
+        "SCCO",
+        "SCPY",
+        "SCWW",
+        "SCNH",
+        "SCOR",
+        "SCHI",
+        "STSY",
+        "SCFI",
+        "SCPE",
+        "SCCM",
+        "SCPB",
+        "SCHU",
+        "SCBD",
+        "SDVN",
+        "SCMY",
+        "SCOX",
+        "SCST",
+        "SCNW",
+        "SSPH",
+        "SSTY",
+        "SCGR",
+        "SCLA",
+        "STWR",
+        "STCR",
+        "SCHN",
+        "SCHS",
+        "SCCH",
+        "STWD",
+        "STGS",
+        "STLA",
+        "SNNK",
+        "SINV",
+        "SELK",
+        "SCOT",
+        "SCMB",
+        "SCLV",
+        "SCIV",
+        "SCHW",
+        "SCGD",
+        "SCCU",
+        "SCBL",
+        "OXTU",
+        "MGIC",
+        "MAGI",
+        "MAGB",
+        "FBUZ"
+      ],
+      "name": "Stagecoach_Stockport_Manchester City Centre_20200828",
+      "description": "Stagecoach Manchester",
+      "comment": "Automatically detected change in data set",
+      "status": "inactive",
+      "url": "https://data.bus-data.dft.gov.uk/timetable/dataset/6/download/",
+      "extension": "zip",
+      "lines": [
+        "1",
+        "10",
+        "101",
+        "102",
+        "103",
+        "108",
+        "10A",
+        "11",
+        "111",
+        "112",
+        "113",
+        "114",
+        "115",
+        "116",
+        "117",
+        "118",
+        "119",
+        "11A",
+        "12",
+        "12A",
+        "142",
+        "143",
+        "147",
+        "149",
+        "15",
+        "150",
+        "156",
+        "171",
+        "172",
+        "183",
+        "191",
+        "192",
+        "197",
+        "2",
+        "201",
+        "202",
+        "203",
+        "205",
+        "216",
+        "219",
+        "220",
+        "221",
+        "23",
+        "230",
+        "231",
+        "232",
+        "237",
+        "25",
+        "250",
+        "253",
+        "255",
+        "256",
+        "3",
+        "312S",
+        "313",
+        "314",
+        "322",
+        "323",
+        "324",
+        "325",
+        "327",
+        "328",
+        "330",
+        "336",
+        "337",
+        "339",
+        "34",
+        "341",
+        "342",
+        "343",
+        "344",
+        "345",
+        "346",
+        "347",
+        "34A",
+        "350",
+        "358",
+        "360",
+        "368",
+        "374",
+        "374S",
+        "375",
+        "378",
+        "378A",
+        "379",
+        "38",
+        "383",
+        "384",
+        "389",
+        "396",
+        "4",
+        "41",
+        "415",
+        "41A",
+        "42",
+        "425",
+        "426",
+        "42A",
+        "42B",
+        "42C",
+        "43",
+        "5",
+        "50",
+        "51",
+        "56",
+        "6",
+        "630",
+        "634",
+        "635",
+        "651",
+        "7",
+        "701",
+        "703",
+        "704",
+        "705",
+        "706",
+        "707",
+        "718",
+        "719",
+        "720",
+        "721",
+        "721S",
+        "724",
+        "725",
+        "727",
+        "728",
+        "729",
+        "731",
+        "733",
+        "74",
+        "742",
+        "743",
+        "747",
+        "748",
+        "749",
+        "750",
+        "751",
+        "758",
+        "76",
+        "768",
+        "769",
+        "76A",
+        "770",
+        "774",
+        "786",
+        "790S",
+        "792",
+        "796",
+        "797",
+        "798",
+        "799",
+        "7A",
+        "7B",
+        "8",
+        "80",
+        "800",
+        "802",
+        "804",
+        "806",
+        "808",
+        "809",
+        "81",
+        "811",
+        "815",
+        "817",
+        "820",
+        "821",
+        "827",
+        "834",
+        "837",
+        "844",
+        "845",
+        "847",
+        "847S",
+        "85",
+        "850",
+        "852",
+        "857",
+        "85A",
+        "86",
+        "864",
+        "864C",
+        "866",
+        "869",
+        "870",
+        "870S",
+        "874",
+        "877",
+        "878",
+        "886",
+        "891",
+        "9",
+        "900",
+        "906",
+        "967",
+        "X50",
+        "X58",
+        "X92",
+        "Y16",
+        "Y19",
+        "Y23",
+        "Y4",
+        "Y45",
+        "Y6",
+        "Y61",
+        "Y62",
+        "Y63",
+        "Y64",
+        "Y73",
+        "Y8",
+        "Y81",
+        "Y82",
+        "Y89",
+        "Y90",
+        "Y95",
+        "Y96"
+      ],
+      "firstStartDate": "2020-08-28T00:00:00+00:00",
+      "firstEndDate": "2020-11-28T23:59:00+00:00",
+      "lastEndDate": "2020-11-28T23:59:00+00:00",
+      "adminAreas": [
+        {
+          "atco_code": "060",
+          "name": "Cheshire East"
+        },
+        {
+          "atco_code": "100",
+          "name": "Derbyshire"
+        },
+        {
+          "atco_code": "180",
+          "name": "Greater Manchester"
+        },
+        {
+          "atco_code": "250",
+          "name": "Lancashire"
+        }
+      ],
+      "localities": [
+        {
+          "gazetteer_id": "E0028241",
+          "name": "Abbey Hey"
+        },
+        {
+          "gazetteer_id": "N0074875",
+          "name": "Abbey Hills"
+        },
+        {
+          "gazetteer_id": "E0028244",
+          "name": "Abram"
+        },
+        {
+          "gazetteer_id": "E0028247",
+          "name": "Adswood"
+        },
+        {
+          "gazetteer_id": "N0075063",
+          "name": "Albert Square"
+        },
+        {
+          "gazetteer_id": "E0028253",
+          "name": "Alder Forest"
+        },
+        {
+          "gazetteer_id": "E0028255",
+          "name": "Alexandra Park"
+        },
+        {
+          "gazetteer_id": "N0074880",
+          "name": "Alkrington"
+        },
+        {
+          "gazetteer_id": "E0028256",
+          "name": "Alkrington Garden Village"
+        },
+        {
+          "gazetteer_id": "E0028259",
+          "name": "Alt"
+        },
+        {
+          "gazetteer_id": "E0028261",
+          "name": "Altrincham"
+        },
+        {
+          "gazetteer_id": "N0074882",
+          "name": "Ancoats"
+        },
+        {
+          "gazetteer_id": "E0016457",
+          "name": "Appley Bridge"
+        },
+        {
+          "gazetteer_id": "E0028484",
+          "name": "Ardwick"
+        },
+        {
+          "gazetteer_id": "N0076717",
+          "name": "Arrowfield Estate"
+        },
+        {
+          "gazetteer_id": "N0074883",
+          "name": "Ashburys"
+        },
+        {
+          "gazetteer_id": "E0028491",
+          "name": "Ashton-in-Makerfield"
+        },
+        {
+          "gazetteer_id": "E0028488",
+          "name": "Ashton Moss"
+        },
+        {
+          "gazetteer_id": "E0028492",
+          "name": "Ashton-under-Lyne"
+        },
+        {
+          "gazetteer_id": "N0074884",
+          "name": "Astley"
+        },
+        {
+          "gazetteer_id": "E0028499",
+          "name": "Atherton"
+        },
+        {
+          "gazetteer_id": "N0076715",
+          "name": "Audenshaw"
+        },
+        {
+          "gazetteer_id": "E0028501",
+          "name": "Austerlands"
+        },
+        {
+          "gazetteer_id": "E0028503",
+          "name": "Backbower"
+        },
+        {
+          "gazetteer_id": "E0028505",
+          "name": "Baguley"
+        },
+        {
+          "gazetteer_id": "E0028509",
+          "name": "Bamfurlong"
+        },
+        {
+          "gazetteer_id": "N0074888",
+          "name": "Bank House"
+        },
+        {
+          "gazetteer_id": "E0028517",
+          "name": "Bardsley Gate"
+        },
+        {
+          "gazetteer_id": "E0028534",
+          "name": "Bedford"
+        },
+        {
+          "gazetteer_id": "E0028535",
+          "name": "Beech Hill"
+        },
+        {
+          "gazetteer_id": "N0074893",
+          "name": "Belle Green Estate"
+        },
+        {
+          "gazetteer_id": "E0028538",
+          "name": "Belle Vue"
+        },
+        {
+          "gazetteer_id": "E0028539",
+          "name": "Benchill"
+        },
+        {
+          "gazetteer_id": "E0028544",
+          "name": "Beswick"
+        },
+        {
+          "gazetteer_id": "E0028546",
+          "name": "Bickershaw"
+        },
+        {
+          "gazetteer_id": "E0028549",
+          "name": "Birchfields"
+        },
+        {
+          "gazetteer_id": "E0007028",
+          "name": "Birch Vale"
+        },
+        {
+          "gazetteer_id": "E0028557",
+          "name": "Blackley"
+        },
+        {
+          "gazetteer_id": "E0028559",
+          "name": "Blackmoor"
+        },
+        {
+          "gazetteer_id": "E0028562",
+          "name": "Boarshaw"
+        },
+        {
+          "gazetteer_id": "E0028561",
+          "name": "Boars Head"
+        },
+        {
+          "gazetteer_id": "E0057777",
+          "name": "Bolton"
+        },
+        {
+          "gazetteer_id": "E0028576",
+          "name": "Boothstown"
+        },
+        {
+          "gazetteer_id": "E0028577",
+          "name": "Bosden Farm"
+        },
+        {
+          "gazetteer_id": "N0074904",
+          "name": "Boundary Park"
+        },
+        {
+          "gazetteer_id": "E0028586",
+          "name": "Bower Fold"
+        },
+        {
+          "gazetteer_id": "E0028588",
+          "name": "Bowker Vale"
+        },
+        {
+          "gazetteer_id": "E0028595",
+          "name": "Bramhall"
+        },
+        {
+          "gazetteer_id": "N0074909",
+          "name": "Bramhall Green"
+        },
+        {
+          "gazetteer_id": "E0028600",
+          "name": "Bredbury"
+        },
+        {
+          "gazetteer_id": "E0028601",
+          "name": "Bredbury Green"
+        },
+        {
+          "gazetteer_id": "E0028605",
+          "name": "Brinnington"
+        },
+        {
+          "gazetteer_id": "N0074914",
+          "name": "Broadbent Fold"
+        },
+        {
+          "gazetteer_id": "N0074915",
+          "name": "Broadway"
+        },
+        {
+          "gazetteer_id": "N0075087",
+          "name": "Brookbottom"
+        },
+        {
+          "gazetteer_id": "E0028623",
+          "name": "Brooklands"
+        },
+        {
+          "gazetteer_id": "E0028622",
+          "name": "Brooks Bar"
+        },
+        {
+          "gazetteer_id": "E0028629",
+          "name": "Broomwood"
+        },
+        {
+          "gazetteer_id": "N0078417",
+          "name": "Brunswick"
+        },
+        {
+          "gazetteer_id": "E0028640",
+          "name": "Brushes"
+        },
+        {
+          "gazetteer_id": "E0028641",
+          "name": "Bryn"
+        },
+        {
+          "gazetteer_id": "E0028647",
+          "name": "Buckton Vale"
+        },
+        {
+          "gazetteer_id": "E0028653",
+          "name": "Burnage"
+        },
+        {
+          "gazetteer_id": "E0028661",
+          "name": "Busk"
+        },
+        {
+          "gazetteer_id": "E0028662",
+          "name": "Butler Green"
+        },
+        {
+          "gazetteer_id": "E0028668",
+          "name": "Calder Bank"
+        },
+        {
+          "gazetteer_id": "E0028672",
+          "name": "Cale Green"
+        },
+        {
+          "gazetteer_id": "E0028682",
+          "name": "Carrbrook"
+        },
+        {
+          "gazetteer_id": "E0028683",
+          "name": "Carrcote"
+        },
+        {
+          "gazetteer_id": "E0052672",
+          "name": "Carrington"
+        },
+        {
+          "gazetteer_id": "N0074931",
+          "name": "Castle Hill"
+        },
+        {
+          "gazetteer_id": "N0077433",
+          "name": "Castle Hill"
+        },
+        {
+          "gazetteer_id": "E0028692",
+          "name": "Chadderton"
+        },
+        {
+          "gazetteer_id": "E0029539",
+          "name": "Charlestown"
+        },
+        {
+          "gazetteer_id": "E0028698",
+          "name": "Cheadle"
+        },
+        {
+          "gazetteer_id": "E0028699",
+          "name": "Cheadle Heath"
+        },
+        {
+          "gazetteer_id": "E0028700",
+          "name": "Cheadle Hulme"
+        },
+        {
+          "gazetteer_id": "E0028702",
+          "name": "Cheetham"
+        },
+        {
+          "gazetteer_id": "E0028704",
+          "name": "Cheetham Hill"
+        },
+        {
+          "gazetteer_id": "E0028706",
+          "name": "Chequerbent"
+        },
+        {
+          "gazetteer_id": "E0028708",
+          "name": "Cherry Tree"
+        },
+        {
+          "gazetteer_id": "N0078639",
+          "name": "Chester Square"
+        },
+        {
+          "gazetteer_id": "E0028713",
+          "name": "Chorlton"
+        },
+        {
+          "gazetteer_id": "N0074941",
+          "name": "Chorlton Green"
+        },
+        {
+          "gazetteer_id": "E0028715",
+          "name": "Chorlton upon Medlock"
+        },
+        {
+          "gazetteer_id": "E0028716",
+          "name": "Chorltonville"
+        },
+        {
+          "gazetteer_id": "N0077407",
+          "name": "Circular Road Estate"
+        },
+        {
+          "gazetteer_id": "N0074944",
+          "name": "Clarksfield"
+        },
+        {
+          "gazetteer_id": "E0028720",
+          "name": "Clayton"
+        },
+        {
+          "gazetteer_id": "E0028721",
+          "name": "Clayton Bridge"
+        },
+        {
+          "gazetteer_id": "N0077788",
+          "name": "Cockbrook"
+        },
+        {
+          "gazetteer_id": "E0028268",
+          "name": "Coldhurst"
+        },
+        {
+          "gazetteer_id": "E0028269",
+          "name": "Collyhurst"
+        },
+        {
+          "gazetteer_id": "E0028272",
+          "name": "Compstall"
+        },
+        {
+          "gazetteer_id": "E0028277",
+          "name": "Copley"
+        },
+        {
+          "gazetteer_id": "E0028278",
+          "name": "Coppice"
+        },
+        {
+          "gazetteer_id": "E0028279",
+          "name": "Copster Hill"
+        },
+        {
+          "gazetteer_id": "E0028280",
+          "name": "Cornbrook"
+        },
+        {
+          "gazetteer_id": "E0028282",
+          "name": "Cote Green"
+        },
+        {
+          "gazetteer_id": "E0028290",
+          "name": "Crofts Bank"
+        },
+        {
+          "gazetteer_id": "E0028292",
+          "name": "Crooke"
+        },
+        {
+          "gazetteer_id": "E0028293",
+          "name": "Cross Bank"
+        },
+        {
+          "gazetteer_id": "E0028297",
+          "name": "Crowcroft Park"
+        },
+        {
+          "gazetteer_id": "E0028298",
+          "name": "Crowhill"
+        },
+        {
+          "gazetteer_id": "E0028302",
+          "name": "Crumpsall Green"
+        },
+        {
+          "gazetteer_id": "E0028309",
+          "name": "Daisy Hill"
+        },
+        {
+          "gazetteer_id": "E0028310",
+          "name": "Daisy Nook"
+        },
+        {
+          "gazetteer_id": "E0001897",
+          "name": "Danebank"
+        },
+        {
+          "gazetteer_id": "E0028316",
+          "name": "Dane Bank"
+        },
+        {
+          "gazetteer_id": "E0028317",
+          "name": "Dangerous Corner"
+        },
+        {
+          "gazetteer_id": "E0016478",
+          "name": "Dangerous Corner"
+        },
+        {
+          "gazetteer_id": "E0028321",
+          "name": "Davenport"
+        },
+        {
+          "gazetteer_id": "E0028324",
+          "name": "Davyhulme"
+        },
+        {
+          "gazetteer_id": "E0028325",
+          "name": "Deane"
+        },
+        {
+          "gazetteer_id": "N0074959",
+          "name": "Debdale Park"
+        },
+        {
+          "gazetteer_id": "N0074962",
+          "name": "Delph"
+        },
+        {
+          "gazetteer_id": "N0074964",
+          "name": "Denton"
+        },
+        {
+          "gazetteer_id": "E0028333",
+          "name": "Derker"
+        },
+        {
+          "gazetteer_id": "E0028336",
+          "name": "Didsbury"
+        },
+        {
+          "gazetteer_id": "E0007064",
+          "name": "Dinting Vale"
+        },
+        {
+          "gazetteer_id": "E0044360",
+          "name": "Disley"
+        },
+        {
+          "gazetteer_id": "E0028346",
+          "name": "Dobcross"
+        },
+        {
+          "gazetteer_id": "E0028352",
+          "name": "Dover"
+        },
+        {
+          "gazetteer_id": "E0028353",
+          "name": "Droylsden"
+        },
+        {
+          "gazetteer_id": "E0028357",
+          "name": "Dukinfield"
+        },
+        {
+          "gazetteer_id": "E0028358",
+          "name": "Dumplington"
+        },
+        {
+          "gazetteer_id": "E0028368",
+          "name": "East Didsbury"
+        },
+        {
+          "gazetteer_id": "E0028369",
+          "name": "Eccles"
+        },
+        {
+          "gazetteer_id": "E0028371",
+          "name": "Edge Green"
+        },
+        {
+          "gazetteer_id": "N0074972",
+          "name": "Edgeley"
+        },
+        {
+          "gazetteer_id": "E0028377",
+          "name": "Ellenbrook"
+        },
+        {
+          "gazetteer_id": "E0028378",
+          "name": "Ellesmere Park"
+        },
+        {
+          "gazetteer_id": "E0028381",
+          "name": "Engine Fold"
+        },
+        {
+          "gazetteer_id": "E0028382",
+          "name": "Ernocroft"
+        },
+        {
+          "gazetteer_id": "E0028385",
+          "name": "Failsworth"
+        },
+        {
+          "gazetteer_id": "E0028387",
+          "name": "Fairfield"
+        },
+        {
+          "gazetteer_id": "N0074979",
+          "name": "Fallowfield"
+        },
+        {
+          "gazetteer_id": "E0028399",
+          "name": "Fernhill Gate"
+        },
+        {
+          "gazetteer_id": "N0077438",
+          "name": "Firs Lane"
+        },
+        {
+          "gazetteer_id": "E0028403",
+          "name": "Firswood"
+        },
+        {
+          "gazetteer_id": "E0028406",
+          "name": "Fitton Hill"
+        },
+        {
+          "gazetteer_id": "N0074983",
+          "name": "Fitton Park"
+        },
+        {
+          "gazetteer_id": "E0028410",
+          "name": "Flixton"
+        },
+        {
+          "gazetteer_id": "N0074984",
+          "name": "Flowery Field"
+        },
+        {
+          "gazetteer_id": "E0028431",
+          "name": "Gathurst"
+        },
+        {
+          "gazetteer_id": "E0028432",
+          "name": "Gatley"
+        },
+        {
+          "gazetteer_id": "E0028434",
+          "name": "Gee Cross"
+        },
+        {
+          "gazetteer_id": "E0028436",
+          "name": "Gidlow"
+        },
+        {
+          "gazetteer_id": "E0028438",
+          "name": "Gillbent"
+        },
+        {
+          "gazetteer_id": "E0028439",
+          "name": "Gilnow"
+        },
+        {
+          "gazetteer_id": "E0028443",
+          "name": "Glodwick"
+        },
+        {
+          "gazetteer_id": "E0007081",
+          "name": "Glossop"
+        },
+        {
+          "gazetteer_id": "E0028445",
+          "name": "Godley"
+        },
+        {
+          "gazetteer_id": "E0028447",
+          "name": "Golborne"
+        },
+        {
+          "gazetteer_id": "E0028449",
+          "name": "Goose Green"
+        },
+        {
+          "gazetteer_id": "E0028450",
+          "name": "Gorse Hill"
+        },
+        {
+          "gazetteer_id": "E0028451",
+          "name": "Gorton"
+        },
+        {
+          "gazetteer_id": "E0028460",
+          "name": "Great Moor"
+        },
+        {
+          "gazetteer_id": "E0028471",
+          "name": "Greenacres"
+        },
+        {
+          "gazetteer_id": "E0028466",
+          "name": "Green End"
+        },
+        {
+          "gazetteer_id": "E0028472",
+          "name": "Greenfield"
+        },
+        {
+          "gazetteer_id": "N0076725",
+          "name": "Greengate"
+        },
+        {
+          "gazetteer_id": "N0077436",
+          "name": "Greenheys"
+        },
+        {
+          "gazetteer_id": "E0028477",
+          "name": "Greenside"
+        },
+        {
+          "gazetteer_id": "E0028479",
+          "name": "Grotton"
+        },
+        {
+          "gazetteer_id": "E0028480",
+          "name": "Guide Bridge"
+        },
+        {
+          "gazetteer_id": "E0007088",
+          "name": "Hadfield"
+        },
+        {
+          "gazetteer_id": "E0028727",
+          "name": "Hag Fold"
+        },
+        {
+          "gazetteer_id": "E0007089",
+          "name": "Hague Bar"
+        },
+        {
+          "gazetteer_id": "N0074997",
+          "name": "Hale Barns"
+        },
+        {
+          "gazetteer_id": "N0077747",
+          "name": "Handforth Dean"
+        },
+        {
+          "gazetteer_id": "E0028743",
+          "name": "Harpurhey"
+        },
+        {
+          "gazetteer_id": "E0028748",
+          "name": "Harrytown"
+        },
+        {
+          "gazetteer_id": "N0074998",
+          "name": "Hartshead"
+        },
+        {
+          "gazetteer_id": "E0028755",
+          "name": "Hathershaw"
+        },
+        {
+          "gazetteer_id": "E0028756",
+          "name": "Hattersley"
+        },
+        {
+          "gazetteer_id": "E0028759",
+          "name": "Haughton Green"
+        },
+        {
+          "gazetteer_id": "E0028761",
+          "name": "Hawk Green"
+        },
+        {
+          "gazetteer_id": "E0028762",
+          "name": "Hawkley"
+        },
+        {
+          "gazetteer_id": "E0045132",
+          "name": "Hayfield"
+        },
+        {
+          "gazetteer_id": "E0028763",
+          "name": "Hazel Grove"
+        },
+        {
+          "gazetteer_id": "E0028766",
+          "name": "Hazelhurst"
+        },
+        {
+          "gazetteer_id": "N0075002",
+          "name": "Heald Green"
+        },
+        {
+          "gazetteer_id": "E0028777",
+          "name": "Heaton Chapel"
+        },
+        {
+          "gazetteer_id": "E0028778",
+          "name": "Heaton Mersey"
+        },
+        {
+          "gazetteer_id": "E0028779",
+          "name": "Heaton Moor"
+        },
+        {
+          "gazetteer_id": "E0028780",
+          "name": "Heaton Norris"
+        },
+        {
+          "gazetteer_id": "E0028783",
+          "name": "Heaviley"
+        },
+        {
+          "gazetteer_id": "N0075006",
+          "name": "Hey Farm Estate"
+        },
+        {
+          "gazetteer_id": "E0028798",
+          "name": "Higher Blackley"
+        },
+        {
+          "gazetteer_id": "E0028802",
+          "name": "Higher Crumpsall"
+        },
+        {
+          "gazetteer_id": "E0028804",
+          "name": "Higher Folds"
+        },
+        {
+          "gazetteer_id": "E0028806",
+          "name": "Higher Hurst"
+        },
+        {
+          "gazetteer_id": "E0028807",
+          "name": "Higher Ince"
+        },
+        {
+          "gazetteer_id": "E0028810",
+          "name": "Higher Openshaw"
+        },
+        {
+          "gazetteer_id": "E0028816",
+          "name": "Highfield"
+        },
+        {
+          "gazetteer_id": "E0028794",
+          "name": "High Lane"
+        },
+        {
+          "gazetteer_id": "E0028822",
+          "name": "Hindley"
+        },
+        {
+          "gazetteer_id": "E0028823",
+          "name": "Hindley Green"
+        },
+        {
+          "gazetteer_id": "E0028825",
+          "name": "Hindsford"
+        },
+        {
+          "gazetteer_id": "E0028831",
+          "name": "Hollingworth"
+        },
+        {
+          "gazetteer_id": "N0075013",
+          "name": "Hollins"
+        },
+        {
+          "gazetteer_id": "N0075015",
+          "name": "Hollins"
+        },
+        {
+          "gazetteer_id": "E0028839",
+          "name": "Hollinwood"
+        },
+        {
+          "gazetteer_id": "E0028846",
+          "name": "Holts"
+        },
+        {
+          "gazetteer_id": "E0028845",
+          "name": "Holt Town"
+        },
+        {
+          "gazetteer_id": "E0028849",
+          "name": "Hooley Hill"
+        },
+        {
+          "gazetteer_id": "E0028858",
+          "name": "Hoskers Nook"
+        },
+        {
+          "gazetteer_id": "E0028863",
+          "name": "Howe Bridge"
+        },
+        {
+          "gazetteer_id": "E0028865",
+          "name": "Hulme"
+        },
+        {
+          "gazetteer_id": "N0075023",
+          "name": "Humphrey Park"
+        },
+        {
+          "gazetteer_id": "E0028870",
+          "name": "Hunger Hill"
+        },
+        {
+          "gazetteer_id": "E0028873",
+          "name": "Hurst"
+        },
+        {
+          "gazetteer_id": "E0028874",
+          "name": "Hurst Brook"
+        },
+        {
+          "gazetteer_id": "N0075024",
+          "name": "Hurst Cross"
+        },
+        {
+          "gazetteer_id": "E0028876",
+          "name": "Hurst Knoll"
+        },
+        {
+          "gazetteer_id": "E0028879",
+          "name": "Hyde"
+        },
+        {
+          "gazetteer_id": "N0075025",
+          "name": "Hyde Hospital"
+        },
+        {
+          "gazetteer_id": "E0028883",
+          "name": "Ince"
+        },
+        {
+          "gazetteer_id": "E0028886",
+          "name": "Irlams o th Height"
+        },
+        {
+          "gazetteer_id": "E0028892",
+          "name": "John Lee Fold"
+        },
+        {
+          "gazetteer_id": "E0028907",
+          "name": "Kingston"
+        },
+        {
+          "gazetteer_id": "E0028908",
+          "name": "Kirkhall Lane"
+        },
+        {
+          "gazetteer_id": "E0028911",
+          "name": "Kitt Green"
+        },
+        {
+          "gazetteer_id": "E0028922",
+          "name": "Ladybarn"
+        },
+        {
+          "gazetteer_id": "E0028923",
+          "name": "Laithwaite"
+        },
+        {
+          "gazetteer_id": "E0028924",
+          "name": "Lamberhead Green"
+        },
+        {
+          "gazetteer_id": "E0028925",
+          "name": "Lancashire Hill"
+        },
+        {
+          "gazetteer_id": "N0075036",
+          "name": "Land Gate"
+        },
+        {
+          "gazetteer_id": "E0028933",
+          "name": "Lane Ends"
+        },
+        {
+          "gazetteer_id": "E0028936",
+          "name": "Lane Head"
+        },
+        {
+          "gazetteer_id": "N0076701",
+          "name": "Langworthy"
+        },
+        {
+          "gazetteer_id": "E0028946",
+          "name": "Lees"
+        },
+        {
+          "gazetteer_id": "E0028950",
+          "name": "Leigh"
+        },
+        {
+          "gazetteer_id": "E0028951",
+          "name": "Levenshulme"
+        },
+        {
+          "gazetteer_id": "E0028960",
+          "name": "Light Bourne Green"
+        },
+        {
+          "gazetteer_id": "N0077437",
+          "name": "Lilford"
+        },
+        {
+          "gazetteer_id": "E0028965",
+          "name": "Lily Lanes"
+        },
+        {
+          "gazetteer_id": "E0028971",
+          "name": "Limehurst"
+        },
+        {
+          "gazetteer_id": "E0028969",
+          "name": "Limeside"
+        },
+        {
+          "gazetteer_id": "E0028973",
+          "name": "Linnyshaw"
+        },
+        {
+          "gazetteer_id": "E0028978",
+          "name": "Little Hulton"
+        },
+        {
+          "gazetteer_id": "E0028981",
+          "name": "Littlemoss"
+        },
+        {
+          "gazetteer_id": "N0081106",
+          "name": "Logistics North"
+        },
+        {
+          "gazetteer_id": "E0028991",
+          "name": "Longford Park"
+        },
+        {
+          "gazetteer_id": "E0028994",
+          "name": "Longsight"
+        },
+        {
+          "gazetteer_id": "N0075049",
+          "name": "Lostock"
+        },
+        {
+          "gazetteer_id": "E0029002",
+          "name": "Lower Bredbury"
+        },
+        {
+          "gazetteer_id": "E0029006",
+          "name": "Lower Crumpsall"
+        },
+        {
+          "gazetteer_id": "E0029015",
+          "name": "Lower Ince"
+        },
+        {
+          "gazetteer_id": "E0029020",
+          "name": "Lower Moor"
+        },
+        {
+          "gazetteer_id": "E0029000",
+          "name": "Low Side"
+        },
+        {
+          "gazetteer_id": "E0029026",
+          "name": "Lowton"
+        },
+        {
+          "gazetteer_id": "N0075051",
+          "name": "Lowton Common"
+        },
+        {
+          "gazetteer_id": "E0029027",
+          "name": "Lowton St Marys"
+        },
+        {
+          "gazetteer_id": "E0029030",
+          "name": "Luzley"
+        },
+        {
+          "gazetteer_id": "N0075057",
+          "name": "Manchester Airport"
+        },
+        {
+          "gazetteer_id": "E0057786",
+          "name": "Manchester City Centre"
+        },
+        {
+          "gazetteer_id": "N0080934",
+          "name": "Manchester Royal Infirmary"
+        },
+        {
+          "gazetteer_id": "E0029038",
+          "name": "Marple"
+        },
+        {
+          "gazetteer_id": "E0029039",
+          "name": "Marple Bridge"
+        },
+        {
+          "gazetteer_id": "E0029043",
+          "name": "Marsh Green"
+        },
+        {
+          "gazetteer_id": "E0029044",
+          "name": "Marsland Green"
+        },
+        {
+          "gazetteer_id": "N0075076",
+          "name": "Marus Bridge"
+        },
+        {
+          "gazetteer_id": "N0079088",
+          "name": "MediaCityUK"
+        },
+        {
+          "gazetteer_id": "E0029053",
+          "name": "Mellor"
+        },
+        {
+          "gazetteer_id": "N0075078",
+          "name": "Mersey Bank Estate"
+        },
+        {
+          "gazetteer_id": "E0029057",
+          "name": "Micklehurst"
+        },
+        {
+          "gazetteer_id": "E0029060",
+          "name": "Middleton"
+        },
+        {
+          "gazetteer_id": "E0029061",
+          "name": "Middleton Junction"
+        },
+        {
+          "gazetteer_id": "E0002003",
+          "name": "Midway"
+        },
+        {
+          "gazetteer_id": "E0029062",
+          "name": "Mile End"
+        },
+        {
+          "gazetteer_id": "E0029063",
+          "name": "Miles Platting"
+        },
+        {
+          "gazetteer_id": "E0029069",
+          "name": "Millbrook"
+        },
+        {
+          "gazetteer_id": "E0029076",
+          "name": "Monsall"
+        },
+        {
+          "gazetteer_id": "E0029078",
+          "name": "Monton"
+        },
+        {
+          "gazetteer_id": "E0029085",
+          "name": "Moorclose"
+        },
+        {
+          "gazetteer_id": "E0029080",
+          "name": "Moor End"
+        },
+        {
+          "gazetteer_id": "E0029095",
+          "name": "Mosley Common"
+        },
+        {
+          "gazetteer_id": "E0029105",
+          "name": "Mossley"
+        },
+        {
+          "gazetteer_id": "E0029101",
+          "name": "Moss Nook"
+        },
+        {
+          "gazetteer_id": "E0029102",
+          "name": "Moss Side"
+        },
+        {
+          "gazetteer_id": "N0075088",
+          "name": "Moston"
+        },
+        {
+          "gazetteer_id": "E0029109",
+          "name": "Mottram"
+        },
+        {
+          "gazetteer_id": "E0029129",
+          "name": "Newall Green"
+        },
+        {
+          "gazetteer_id": "E0029123",
+          "name": "New Houses"
+        },
+        {
+          "gazetteer_id": "N0080417",
+          "name": "New Islington"
+        },
+        {
+          "gazetteer_id": "E0045136",
+          "name": "New Mills"
+        },
+        {
+          "gazetteer_id": "E0029125",
+          "name": "New Moston"
+        },
+        {
+          "gazetteer_id": "N0075097",
+          "name": "Newton"
+        },
+        {
+          "gazetteer_id": "E0029135",
+          "name": "Newton Heath"
+        },
+        {
+          "gazetteer_id": "E0029137",
+          "name": "Newton Wood"
+        },
+        {
+          "gazetteer_id": "N0075098",
+          "name": "Newtown"
+        },
+        {
+          "gazetteer_id": "E0007132",
+          "name": "Newtown"
+        },
+        {
+          "gazetteer_id": "N0075101",
+          "name": "Newtown"
+        },
+        {
+          "gazetteer_id": "E0029145",
+          "name": "Nimble Nook"
+        },
+        {
+          "gazetteer_id": "E0029150",
+          "name": "Norley Hall"
+        },
+        {
+          "gazetteer_id": "E0029157",
+          "name": "Northenden"
+        },
+        {
+          "gazetteer_id": "N0075104",
+          "name": "Northern Moor"
+        },
+        {
+          "gazetteer_id": "E0029156",
+          "name": "North Reddish"
+        },
+        {
+          "gazetteer_id": "E0029163",
+          "name": "Offerton"
+        },
+        {
+          "gazetteer_id": "E0029165",
+          "name": "Offerton Green"
+        },
+        {
+          "gazetteer_id": "E0057798",
+          "name": "Oldham"
+        },
+        {
+          "gazetteer_id": "N0075108",
+          "name": "Oldham Mumps"
+        },
+        {
+          "gazetteer_id": "E0029170",
+          "name": "Old Trafford"
+        },
+        {
+          "gazetteer_id": "E0029173",
+          "name": "Openshaw"
+        },
+        {
+          "gazetteer_id": "N0075110",
+          "name": "Orrell Post"
+        },
+        {
+          "gazetteer_id": "N0075112",
+          "name": "Owens Park"
+        },
+        {
+          "gazetteer_id": "E0029189",
+          "name": "Parr Fold"
+        },
+        {
+          "gazetteer_id": "N0075113",
+          "name": "Partington"
+        },
+        {
+          "gazetteer_id": "E0029193",
+          "name": "Patricroft"
+        },
+        {
+          "gazetteer_id": "E0029195",
+          "name": "Peel Green"
+        },
+        {
+          "gazetteer_id": "E0029196",
+          "name": "Peel Hall"
+        },
+        {
+          "gazetteer_id": "E0029197",
+          "name": "Pemberton"
+        },
+        {
+          "gazetteer_id": "E0029199",
+          "name": "Pendleton"
+        },
+        {
+          "gazetteer_id": "E0029200",
+          "name": "Pennington"
+        },
+        {
+          "gazetteer_id": "N0075071",
+          "name": "Piccadilly Gardens"
+        },
+        {
+          "gazetteer_id": "E0029209",
+          "name": "Pitses"
+        },
+        {
+          "gazetteer_id": "N0075120",
+          "name": "Plant Hill"
+        },
+        {
+          "gazetteer_id": "E0029211",
+          "name": "Platt Bridge"
+        },
+        {
+          "gazetteer_id": "E0029215",
+          "name": "Poolstock"
+        },
+        {
+          "gazetteer_id": "E0029219",
+          "name": "Pownall Green"
+        },
+        {
+          "gazetteer_id": "E0057334",
+          "name": "Poynton"
+        },
+        {
+          "gazetteer_id": "E0029224",
+          "name": "Primrose Bank"
+        },
+        {
+          "gazetteer_id": "E0029226",
+          "name": "Queens Park"
+        },
+        {
+          "gazetteer_id": "E0029241",
+          "name": "Reddish"
+        },
+        {
+          "gazetteer_id": "N0079512",
+          "name": "Reddish Bridge"
+        },
+        {
+          "gazetteer_id": "E0029240",
+          "name": "Red Rock"
+        },
+        {
+          "gazetteer_id": "E0029248",
+          "name": "Rhodes"
+        },
+        {
+          "gazetteer_id": "E0029252",
+          "name": "Ridge Hill"
+        },
+        {
+          "gazetteer_id": "E0029256",
+          "name": "Roaches"
+        },
+        {
+          "gazetteer_id": "E0029261",
+          "name": "Romiley"
+        },
+        {
+          "gazetteer_id": "N0075134",
+          "name": "Rose Hill"
+        },
+        {
+          "gazetteer_id": "N0075135",
+          "name": "Rose Hill"
+        },
+        {
+          "gazetteer_id": "E0029271",
+          "name": "Roundthorn"
+        },
+        {
+          "gazetteer_id": "N0075137",
+          "name": "Royal Oldham Hospital"
+        },
+        {
+          "gazetteer_id": "E0029284",
+          "name": "Rusholme"
+        },
+        {
+          "gazetteer_id": "E0029286",
+          "name": "Ryder Brow"
+        },
+        {
+          "gazetteer_id": "E0029289",
+          "name": "Sale"
+        },
+        {
+          "gazetteer_id": "E0029290",
+          "name": "Salem"
+        },
+        {
+          "gazetteer_id": "N0076110",
+          "name": "Salford"
+        },
+        {
+          "gazetteer_id": "N0075140",
+          "name": "Salford Quays"
+        },
+        {
+          "gazetteer_id": "N0075019",
+          "name": "Salford Royal Hospital"
+        },
+        {
+          "gazetteer_id": "N0075141",
+          "name": "Salford University"
+        },
+        {
+          "gazetteer_id": "E0029296",
+          "name": "Scholes"
+        },
+        {
+          "gazetteer_id": "E0029300",
+          "name": "Scouthead"
+        },
+        {
+          "gazetteer_id": "E0029304",
+          "name": "Seedley"
+        },
+        {
+          "gazetteer_id": "E0029307",
+          "name": "Sharston"
+        },
+        {
+          "gazetteer_id": "N0075145",
+          "name": "Shaw Heath"
+        },
+        {
+          "gazetteer_id": "E0052677",
+          "name": "Shevington"
+        },
+        {
+          "gazetteer_id": "E0029318",
+          "name": "Shevington Moor"
+        },
+        {
+          "gazetteer_id": "N0075149",
+          "name": "Shevington Vale"
+        },
+        {
+          "gazetteer_id": "N0077806",
+          "name": "Shudehill"
+        },
+        {
+          "gazetteer_id": "E0029338",
+          "name": "Smallshaw"
+        },
+        {
+          "gazetteer_id": "E0029339",
+          "name": "Smedley"
+        },
+        {
+          "gazetteer_id": "E0029341",
+          "name": "Smithy Green"
+        },
+        {
+          "gazetteer_id": "E0029245",
+          "name": "South Reddish"
+        },
+        {
+          "gazetteer_id": "N0077372",
+          "name": "Spinningfields"
+        },
+        {
+          "gazetteer_id": "N0075154",
+          "name": "Sportcity"
+        },
+        {
+          "gazetteer_id": "E0029356",
+          "name": "Springfield"
+        },
+        {
+          "gazetteer_id": "E0029358",
+          "name": "Springhead"
+        },
+        {
+          "gazetteer_id": "E0029354",
+          "name": "Spring View"
+        },
+        {
+          "gazetteer_id": "E0029366",
+          "name": "Stalybridge"
+        },
+        {
+          "gazetteer_id": "N0075165",
+          "name": "Stamford Park"
+        },
+        {
+          "gazetteer_id": "N0081146",
+          "name": "Stamford Park"
+        },
+        {
+          "gazetteer_id": "E0029368",
+          "name": "Standish"
+        },
+        {
+          "gazetteer_id": "E0029369",
+          "name": "Standish Lower Ground"
+        },
+        {
+          "gazetteer_id": "E0029370",
+          "name": "Stanley Green"
+        },
+        {
+          "gazetteer_id": "E0029371",
+          "name": "Stanycliffe"
+        },
+        {
+          "gazetteer_id": "E0029373",
+          "name": "Stepping Hill"
+        },
+        {
+          "gazetteer_id": "E0029361",
+          "name": "St Georges"
+        },
+        {
+          "gazetteer_id": "E0057819",
+          "name": "Stockport"
+        },
+        {
+          "gazetteer_id": "E0029384",
+          "name": "Strangeways"
+        },
+        {
+          "gazetteer_id": "N0075174",
+          "name": "Stretford"
+        },
+        {
+          "gazetteer_id": "E0029391",
+          "name": "Strines"
+        },
+        {
+          "gazetteer_id": "E0029394",
+          "name": "Stubshaw Cross"
+        },
+        {
+          "gazetteer_id": "N0076732",
+          "name": "Sunny Bank Park"
+        },
+        {
+          "gazetteer_id": "E0029409",
+          "name": "Swinley"
+        },
+        {
+          "gazetteer_id": "E0029410",
+          "name": "Swinton"
+        },
+        {
+          "gazetteer_id": "E0029411",
+          "name": "Swinton Park"
+        },
+        {
+          "gazetteer_id": "E0029416",
+          "name": "Tamer Lane End"
+        },
+        {
+          "gazetteer_id": "N0075180",
+          "name": "Tameside General Hospital"
+        },
+        {
+          "gazetteer_id": "E0029421",
+          "name": "Taunton"
+        },
+        {
+          "gazetteer_id": "E0029425",
+          "name": "Thatch Leach"
+        },
+        {
+          "gazetteer_id": "N0074942",
+          "name": "The Christie"
+        },
+        {
+          "gazetteer_id": "N0076733",
+          "name": "The Lowry"
+        },
+        {
+          "gazetteer_id": "N0075187",
+          "name": "The Trafford Centre"
+        },
+        {
+          "gazetteer_id": "E0029438",
+          "name": "Thornley Park"
+        },
+        {
+          "gazetteer_id": "E0028795",
+          "name": "Thurston Clough"
+        },
+        {
+          "gazetteer_id": "E0029443",
+          "name": "Timperley"
+        },
+        {
+          "gazetteer_id": "E0045139",
+          "name": "Tintwistle"
+        },
+        {
+          "gazetteer_id": "E0029479",
+          "name": "Top Mossley"
+        },
+        {
+          "gazetteer_id": "E0029459",
+          "name": "Top of Moor"
+        },
+        {
+          "gazetteer_id": "E0029461",
+          "name": "Torkington"
+        },
+        {
+          "gazetteer_id": "E0029463",
+          "name": "Town Green"
+        },
+        {
+          "gazetteer_id": "E0029465",
+          "name": "Town Lane"
+        },
+        {
+          "gazetteer_id": "N0075186",
+          "name": "Trafford Bar"
+        },
+        {
+          "gazetteer_id": "N0075188",
+          "name": "Trafford General Hospital"
+        },
+        {
+          "gazetteer_id": "E0029470",
+          "name": "Trafford Park"
+        },
+        {
+          "gazetteer_id": "E0029477",
+          "name": "Tyldesley"
+        },
+        {
+          "gazetteer_id": "E0029480",
+          "name": "Uppermill"
+        },
+        {
+          "gazetteer_id": "E0029481",
+          "name": "Urmston"
+        },
+        {
+          "gazetteer_id": "E0029484",
+          "name": "Walkden"
+        },
+        {
+          "gazetteer_id": "E0029488",
+          "name": "Wall Hill"
+        },
+        {
+          "gazetteer_id": "E0029491",
+          "name": "Wallness"
+        },
+        {
+          "gazetteer_id": "E0029496",
+          "name": "Warburton Green"
+        },
+        {
+          "gazetteer_id": "E0029498",
+          "name": "Wardley"
+        },
+        {
+          "gazetteer_id": "E0029501",
+          "name": "Wash End"
+        },
+        {
+          "gazetteer_id": "E0029506",
+          "name": "Waterhead"
+        },
+        {
+          "gazetteer_id": "E0029507",
+          "name": "Waterloo"
+        },
+        {
+          "gazetteer_id": "E0029505",
+          "name": "Waters Nook"
+        },
+        {
+          "gazetteer_id": "E0029517",
+          "name": "Werneth"
+        },
+        {
+          "gazetteer_id": "E0029519",
+          "name": "West Didsbury"
+        },
+        {
+          "gazetteer_id": "E0029521",
+          "name": "West Gorton"
+        },
+        {
+          "gazetteer_id": "E0052668",
+          "name": "Westhoughton"
+        },
+        {
+          "gazetteer_id": "E0029525",
+          "name": "Westleigh"
+        },
+        {
+          "gazetteer_id": "N0076117",
+          "name": "West One Retail Park"
+        },
+        {
+          "gazetteer_id": "E0029527",
+          "name": "Westwood"
+        },
+        {
+          "gazetteer_id": "E0029526",
+          "name": "Westwood Park"
+        },
+        {
+          "gazetteer_id": "E0029530",
+          "name": "Whalley Range"
+        },
+        {
+          "gazetteer_id": "E0029538",
+          "name": "White Gate"
+        },
+        {
+          "gazetteer_id": "E0029543",
+          "name": "Whitley"
+        },
+        {
+          "gazetteer_id": "E0029545",
+          "name": "Whittle Brook"
+        },
+        {
+          "gazetteer_id": "E0057846",
+          "name": "Wigan"
+        },
+        {
+          "gazetteer_id": "N0075200",
+          "name": "Wigan Pier"
+        },
+        {
+          "gazetteer_id": "E0029549",
+          "name": "Willows"
+        },
+        {
+          "gazetteer_id": "E0029552",
+          "name": "Windlehurst"
+        },
+        {
+          "gazetteer_id": "N0075201",
+          "name": "Winstanley"
+        },
+        {
+          "gazetteer_id": "E0029556",
+          "name": "Winstanley Park"
+        },
+        {
+          "gazetteer_id": "E0029557",
+          "name": "Winton"
+        },
+        {
+          "gazetteer_id": "E0029558",
+          "name": "Withington"
+        },
+        {
+          "gazetteer_id": "N0075203",
+          "name": "Woodbank Estate"
+        },
+        {
+          "gazetteer_id": "E0002118",
+          "name": "Woodend"
+        },
+        {
+          "gazetteer_id": "E0029568",
+          "name": "Woodford"
+        },
+        {
+          "gazetteer_id": "E0029575",
+          "name": "Woodhouse Park"
+        },
+        {
+          "gazetteer_id": "E0029576",
+          "name": "Woodhouses"
+        },
+        {
+          "gazetteer_id": "N0075208",
+          "name": "Woodlands"
+        },
+        {
+          "gazetteer_id": "E0029581",
+          "name": "Woodley"
+        },
+        {
+          "gazetteer_id": "N0075209",
+          "name": "Woodsend Circle"
+        },
+        {
+          "gazetteer_id": "E0029584",
+          "name": "Woodsmoor"
+        },
+        {
+          "gazetteer_id": "E0029590",
+          "name": "Worsley"
+        },
+        {
+          "gazetteer_id": "E0029591",
+          "name": "Worsley Mesnes"
+        },
+        {
+          "gazetteer_id": "E0029594",
+          "name": "Wythenshawe"
+        },
+        {
+          "gazetteer_id": "N0081148",
+          "name": "Wythenshawe Hospital"
+        },
+        {
+          "gazetteer_id": "N0075214",
+          "name": "Yew Tree"
+        }
+      ],
+      "dqScore": "100.0%",
+      "dqRag": "green",
+      "bodsCompliance": null
+    }
+  ]
+}

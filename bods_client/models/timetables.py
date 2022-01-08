@@ -29,7 +29,7 @@ class TimetableParams(BaseAPIParams):
     class Config(BaseAPIParams.Config):
         pass
 
-    admin_areas: Optional[AdminAreasType] = Field(None, alias="adminAreas")
+    admin_areas: Optional[AdminAreasType] = Field(None, alias="adminArea")
     search: Optional[str] = None
     modified_date: Optional[datetime] = Field(None, alias="modifiedDate")
     start_date_start: Optional[datetime] = Field(None, alias="startDateEnd")
