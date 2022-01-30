@@ -4,7 +4,7 @@ SHELL:=/usr/bin/env bash
 .PHONY: lint
 lint:
 	poetry run mypy bods_client tests/**/*.py
-	poetry run flake8 .
+	poetry run flake8 bods_client tests
 	poetry run doc8 -q docs
 
 .PHONY: unit
@@ -19,4 +19,3 @@ package:
 
 .PHONY: test
 test: lint package unit
-
