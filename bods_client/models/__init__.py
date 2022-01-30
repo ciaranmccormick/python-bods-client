@@ -1,6 +1,7 @@
 from .avl import GTFSRTParams, SIRIVMParams
 from .base import APIError, BoundingBox
 from .fares import Fares, FaresParams, FaresResponse
+from .siri import Siri
 from .timetables import Timetable, TimetableParams, TimetableResponse
 
 __all__ = [
@@ -11,6 +12,7 @@ __all__ = [
     "FaresResponse",
     "GTFSRTParams",
     "SIRIVMParams",
+    "Siri",
     "Timetable",
     "TimetableParams",
     "TimetableResponse",
