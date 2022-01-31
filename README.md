@@ -32,8 +32,15 @@ from bods_client.models import BoundingBox, GTFSRTParams
 >> API_KEY = "api-key"
 
 >> bods = BODSClient(api_key=API_KEY)
->> box = BoundingBox(min_longitude=-0.54, min_latitude=51.26, max_longitude=0.27, max_latitide=51.75)
->> params = GTFSRTParams(bounding_box=box)
+>> bounding_box = BoundingBox(
+    **{
+        "min_latitude": 51.26,
+        "max_latitude": 51.75,
+        "min_longitude": -0.54,
+        "max_longitude": 0.27,
+    }
+)
+>> params = GTFSRTParams(bounding_box=bounding_box)
 >> message = bods.get_gtfs_rt_data_feed(params=params)
 >> message.entity[0]
 id: "421354378097713049"
@@ -67,25 +74,52 @@ Vehicle locations are also provided in the SIRI-VM XML format using the
 parser library such as `lxml`.
 
 ```python
-
 from bods_client.client import BODSClient
-from bods_client.models import BoundingBox, SIRIVMParams
-from lxml import etree
+from bods_client.models import BoundingBox, Siri, SIRIVMParams
 
-# An API key can be obtained by registering with the Bus Open Data Service
-# https://data.bus-data.dft.gov.uk/account/signup/
+
 >> API_KEY = "api-key"
 
->> bods = BODSClient(api_key=API_KEY)
->> box = BoundingBox(min_longitude=-0.54, min_latitude=51.26, max_longitude=0.27, 
-  max_latitide=51.75)
->> params = SIRIVMParams(bounding_box=box)
->> siri = bods.get_siri_vm_data_feed(params=params)
->> siri
-b'<Siri xmlns="http://www.siri.org.uk/siri" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.siri.org.uk/siri http://www.siri.org.uk/schema/2.0/xsd/siri.xsd" version="2.0"><ServiceDelivery><ResponseTimestamp>2021-03-16T20:21:25.019277+00:00</ResponseTimestamp><ProducerRef>ItoWorld</ProducerRef><VehicleMonitoringDelivery><ResponseTimestamp>2021-03-16T20:21:25.019277+00:00</ResponseTimestamp><RequestMessageRef>d497da8c-1f05-4db0-8680-dadfb22939b5</RequestMessageRef><ValidUntil>2021-03-16T20:26:25.019277+00:00</ValidUntil>
-...
-<DriverRef>111133</DriverRef></VehicleJourney></Extensions></VehicleActivity></VehicleMonitoringDelivery></ServiceDelivery></Siri>'
->> xml = etree.parse(siri)
+>> client = BODSClient(api_key=API_KEY)
+>> bounding_box = BoundingBox(
+    **{
+        "min_latitude": 51.267729,
+        "max_latitude": 51.283191,
+        "min_longitude": -0.142423,
+        "max_longitude": 0.177432,
+    }
+)
+
+>> params = SIRIVMParams(bounding_box=bounding_box)
+>> siri_response = client.get_siri_vm_data_feed(params=params)
+>> siri = Siri.from_bytes(siri_response)
+>> siri.service_delivery.vehicle_monitoring_delivery.vehicle_activities[0]
+VehicleActivity(
+    recorded_at_time=datetime.datetime(
+        2022, 1, 31, 19, 48, 24, tzinfo=datetime.timezone.utc
+    ),
+    item_identifier="05fc46f3-9629-4336-9a8d-f397030f5891",
+    valid_until_time=datetime.datetime(2022, 1, 31, 21, 5, 21, 997139),
+    monitored_vehicle_journey=MonitoredVehicleJourney(
+        bearing=135.0,
+        block_ref=None,
+        framed_vehicle_journey_ref=None,
+        vehicle_journey_ref="447183",
+        destination_name="BEDDINGTON (ABELLIO LONDON)",
+        destination_ref=None,
+        orgin_name=None,
+        origin_ref="40004410084D",
+        origin_aimed_departure_time=datetime.datetime(
+            2022, 1, 31, 19, 53, tzinfo=datetime.timezone.utc
+        ),
+        direction_ref="1",
+        published_line_name="407",
+        line_ref="296",
+        vehicle_location=VehicleLocation(longitude=-0.077464, latitude=51.282658),
+        operator_ref="TFLO",
+        vehicle_ref="16085",
+    ),
+)
 ```
 
 Details about the SIRI specification can be found [here](http://www.transmodel-cen.eu/standards/siri/).
@@ -94,5 +128,3 @@ Details about the SIRI specification can be found [here](http://www.transmodel-c
 ## License
 
 [MIT](https://github.com/ciaran.mccormick/bods-client/blob/master/LICENSE)
-
-
