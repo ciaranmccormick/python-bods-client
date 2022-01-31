@@ -11,8 +11,6 @@ from bods_client.models.base import APIError, BoundingBox
 from bods_client.models.fares import FaresParams
 from bods_client.models.timetables import TimetableParams
 
-_MAKE_REQUEST = "bods_client.client.BODSClient._make_request"
-
 
 def test_url_with_trailing_slash():
     key = "apikey"
@@ -209,6 +207,30 @@ def test_get_siri_vm_no_params(mrequests):
     mrequests.assert_called_once_with(client.siri_vm_endpoint, params={})
 
 
+@pytest.mark.usefixtures("_bods_requests")
+def test_get_siri_vm_200_response():
+    api_key = "api_key"
+    client = BODSClient(api_key=api_key)
+    sirivm = client.get_siri_vm_data_feed()
+    assert isinstance(sirivm, bytes)
+
+
+@pytest.mark.usefixtures("_bods_requests")
+def test_get_siri_vm_by_id_200_response():
+    api_key = "api_key"
+    client = BODSClient(api_key=api_key)
+    sirivm = client.get_siri_vm_data_feed_by_id(feed_id=10)
+    assert isinstance(sirivm, bytes)
+
+
+@pytest.mark.usefixtures("_bods_requests_error")
+def test_get_siri_vm_by_id_non_200_response():
+    api_key = "api_key"
+    client = BODSClient(api_key=api_key)
+    sirivm = client.get_siri_vm_data_feed_by_id(feed_id=10)
+    assert isinstance(sirivm, APIError)
+
+
 @patch("bods_client.client.BODSClient._make_request")
 def test_get_gtfs_rt_no_params(mrequests):
     response = MagicMock(spec=Response, status_code=400, content=b"Oopsie")
@@ -239,49 +261,44 @@ def test_get_gtfs_rt_bounding_box(mrequests):
     mrequests.assert_called_once_with(client.gtfs_rt_endpoint, params=expected_params)
 
 
-def test_siri_vm_from_archive_200(siri_vm_archive_response):
+@pytest.mark.usefixtures("_bods_requests")
+def test_siri_vm_from_archive_200():
     api_key = "api_key"
-    expected_endpoint = "https://data.bus-data.dft.gov.uk/avl/download/bulk_archive"
     client = BODSClient(api_key=api_key)
-    with patch(_MAKE_REQUEST) as request:
-        request.return_value = siri_vm_archive_response
-        siri = client.get_siri_vm_from_archive()
-        request.assert_called_once_with(expected_endpoint)
-        assert isinstance(siri, bytes)
+    siri = client.get_siri_vm_from_archive()
+    assert isinstance(siri, bytes)
 
 
+@pytest.mark.usefixtures("_bods_requests_error")
 def test_siri_vm_from_archive_error():
     api_key = "api_key"
-    expected_endpoint = "https://data.bus-data.dft.gov.uk/avl/download/bulk_archive"
     client = BODSClient(api_key=api_key)
-    with patch(_MAKE_REQUEST) as request:
-        request.return_value = MagicMock(
-            spec=Response, status_code=500, content="Error"
-        )
-        siri = client.get_siri_vm_from_archive()
-        request.assert_called_once_with(expected_endpoint)
-        assert isinstance(siri, APIError)
+    siri = client.get_siri_vm_from_archive()
+    assert isinstance(siri, APIError)
 
 
-def test_gtfs_rt_from_archive_200(gtfs_rt_archive_response):
+@pytest.mark.usefixtures("_bods_requests")
+def test_gtfs_rt_from_archive_200():
     api_key = "api_key"
-    expected_endpoint = "https://data.bus-data.dft.gov.uk/avl/download/gtfsrt"
     client = BODSClient(api_key=api_key)
-    with patch(_MAKE_REQUEST) as request:
-        request.return_value = gtfs_rt_archive_response
-        gtfsrt = client.get_gtfs_rt_from_archive()
-        request.assert_called_once_with(expected_endpoint)
-        assert isinstance(gtfsrt, FeedMessage)
+    gtfsrt = client.get_gtfs_rt_from_archive()
+    assert isinstance(gtfsrt, FeedMessage)
 
 
+@pytest.mark.usefixtures("_bods_requests_error")
 def test_gtfs_rt_from_archive_error():
     api_key = "api_key"
-    expected_endpoint = "https://data.bus-data.dft.gov.uk/avl/download/gtfsrt"
     client = BODSClient(api_key=api_key)
-    with patch(_MAKE_REQUEST) as request:
-        request.return_value = MagicMock(
-            spec=Response, status_code=500, content="Error"
-        )
-        gtfsrt = client.get_gtfs_rt_from_archive()
-        request.assert_called_once_with(expected_endpoint)
-        assert isinstance(gtfsrt, APIError)
+    gtfsrt = client.get_gtfs_rt_from_archive()
+    assert isinstance(gtfsrt, APIError)
+
+
+@pytest.mark.usefixtures("_bods_requests")
+def test_get_gtfsrt_200_response():
+    api_key = "api_key"
+    client = BODSClient(api_key=api_key)
+    message = client.get_gtfs_rt_data_feed()
+    assert isinstance(message, FeedMessage)
+    assert len(message.entity) == 4
+    assert message.header.gtfs_realtime_version == "2.0"
+    assert message.header.timestamp == 1643658718
