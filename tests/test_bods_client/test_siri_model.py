@@ -2,7 +2,6 @@ from datetime import datetime
 from pathlib import Path
 
 import pytest
-from pydantic import ValidationError
 
 from bods_client.models import Siri
 from bods_client.models.siri import SiriParsingError, VehicleActivity
@@ -67,5 +66,10 @@ def test_missing_vehicle_location():
 def test_missing_vehicle_journey_refs():
     missing = DATA / "missing_vj_ref.xml"
     with missing.open("rb") as f:
-        with pytest.raises(ValidationError):
-            Siri.from_bytes(f.read())
+        siri = Siri.from_bytes(f.read())
+
+    assert isinstance(siri, Siri)
+    vehicles = siri.service_delivery.vehicle_monitoring_delivery.vehicle_activities
+    mvj = vehicles[0].monitored_vehicle_journey
+    assert mvj.framed_vehicle_journey_ref is None
+    assert mvj.vehicle_journey_ref is None

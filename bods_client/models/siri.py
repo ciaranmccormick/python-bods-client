@@ -3,7 +3,7 @@ from typing import List, Optional
 
 from lxml import etree
 from lxml.etree import _Element
-from pydantic import BaseModel, root_validator
+from pydantic import BaseModel
 
 SIRI_NAMESPACE = "http://www.siri.org.uk/siri"
 _NSMAP = {"x": SIRI_NAMESPACE}
@@ -56,21 +56,6 @@ class MonitoredVehicleJourney(BaseModel):
     vehicle_location: Optional[VehicleLocation]
     operator_ref: str
     vehicle_ref: str
-
-    @root_validator()
-    def check_has_journey_ref(cls, values):
-        """
-        Ensure that MonitoredVehicleJourney has at least one of vehicle_journey_ref
-        or framed_vehicle_journey_ref.
-        """
-        vehicle_journey_ref = values.get("vehicle_journey_ref")
-        framed_vehicle_journey_ref = values.get("framed_vehicle_journey_ref")
-        if vehicle_journey_ref is None and framed_vehicle_journey_ref is None:
-            raise ValueError(
-                "Only one of 'VehicleJourneyRef' and 'FramedVehicleJourneyRef' "
-                "can be None"
-            )
-        return values
 
     @classmethod
     def from_lxml_element(cls, element: _Element) -> "MonitoredVehicleJourney":
