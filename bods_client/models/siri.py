@@ -100,7 +100,7 @@ class MonitoredVehicleJourney(BaseModel):
 
 class VehicleActivity(BaseModel):
     recorded_at_time: datetime
-    item_identifier: str
+    item_identifier: Optional[str]
     valid_until_time: datetime
     monitored_vehicle_journey: MonitoredVehicleJourney
 

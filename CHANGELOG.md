@@ -2,6 +2,10 @@
 
 We follow [Semantic Versions](https://semver.org/).
 
+## Version 0.7.1
+
+- Make item_identifier optional in the SIRI VM model
+
 ## Version 0.7.0
 
 - Added `Siri` model to parse SIRI-VM responses from BODS
