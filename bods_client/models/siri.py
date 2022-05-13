@@ -40,6 +40,30 @@ class VehicleLocation(BaseModel):
         )
 
 
+class VehicleJourney(BaseModel):
+    driver_ref: Optional[str]
+
+    @classmethod
+    def from_lxml_element(cls, element: _Element) -> "VehicleJourney":
+        return cls(
+            driver_ref=element.findtext("x:DriverRef", namespaces=_NSMAP),
+        )
+
+
+class Extensions(BaseModel):
+    vehicle_journey: Optional[VehicleJourney]
+
+    @classmethod
+    def from_lxml_element(cls, element: _Element) -> "Extensions":
+        vehicle_journey = None
+        vehicle_journey_element = element.find("x:VehicleJourney", namespaces=_NSMAP)
+        if vehicle_journey_element is not None:
+            vehicle_journey = VehicleJourney.from_lxml_element(vehicle_journey_element)
+        return cls(
+            vehicle_journey=vehicle_journey,
+        )
+
+
 class MonitoredVehicleJourney(BaseModel):
     bearing: Optional[float]
     block_ref: Optional[str]
@@ -47,7 +71,7 @@ class MonitoredVehicleJourney(BaseModel):
     vehicle_journey_ref: Optional[str]
     destination_name: Optional[str]
     destination_ref: Optional[str]
-    orgin_name: Optional[str]
+    origin_name: Optional[str]
     origin_ref: Optional[str]
     origin_aimed_departure_time: Optional[datetime]
     direction_ref: Optional[str]
@@ -56,6 +80,7 @@ class MonitoredVehicleJourney(BaseModel):
     vehicle_location: Optional[VehicleLocation]
     operator_ref: str
     vehicle_ref: str
+    extensions: Optional[Extensions]
 
     @classmethod
     def from_lxml_element(cls, element: _Element) -> "MonitoredVehicleJourney":
@@ -70,6 +95,11 @@ class MonitoredVehicleJourney(BaseModel):
         vehicle_location_element = element.find("x:VehicleLocation", namespaces=_NSMAP)
         if vehicle_location_element is None:
             raise SiriParsingError("missing 'VehicleLocation'.")
+
+        extensions = None
+        extensions_element = element.find("x:Extensions", namespaces=_NSMAP)
+        if extensions_element is not None:
+            extensions = Extensions.from_lxml_element(extensions_element)
 
         return cls(
             bearing=element.findtext("x:Bearing", namespaces=_NSMAP),
@@ -95,6 +125,7 @@ class MonitoredVehicleJourney(BaseModel):
             vehicle_location=VehicleLocation.from_lxml_element(
                 vehicle_location_element
             ),
+            extensions=extensions,
         )
 
 
@@ -172,15 +203,17 @@ class ServiceDelivery(BaseModel):
 
 
 class Siri(BaseModel):
+    version: str
     service_delivery: ServiceDelivery
 
     @classmethod
     def from_lxml_element(cls, element: _Element) -> "Siri":
+        version = element.attrib["version"]
         sd_element = element.find("x:ServiceDelivery", namespaces=_NSMAP)
         if sd_element is None:
             raise SiriParsingError("missing 'ServiceDelivery'.")
         service_delivery = ServiceDelivery.from_lxml_element(element=sd_element)
-        return cls(service_delivery=service_delivery)
+        return cls(version=version, service_delivery=service_delivery)
 
     @classmethod
     def from_string(cls, packet: str) -> "Siri":
