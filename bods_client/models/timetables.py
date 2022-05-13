@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import List, Optional
 
+from pydantic import BaseModel
 from pydantic.fields import Field
 
 from bods_client.models.base import (
@@ -42,3 +43,37 @@ class TimetableParams(BaseAPIParams):
 
 class TimetableResponse(BaseAPIResponse):
     results: List[Timetable]
+
+
+class TxcFile(BaseModel):
+    id: int
+    dataset_id: int
+    schema_version: str
+    revision_number: int
+    modification: str
+    creation_datetime: datetime
+    modification_datetime: datetime
+    filename: str
+    service_code: str
+    national_operator_code: str
+    licence_number: str
+    operating_period_start_date: Optional[str] = None
+    operating_period_end_date: Optional[str] = None
+    public_use: bool
+    line_names: List[str]
+    origin: str
+    destination: str
+
+
+class TxcFileParams(BaseModel):
+    class Config:
+        allow_population_by_field_name = True
+
+    noc: Optional[str] = None
+    line_name: Optional[str] = None
+    limit: int = 25
+    offset: int = 0
+
+
+class TxcFileResponse(BaseAPIResponse):
+    results: List[TxcFile]
