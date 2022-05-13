@@ -17,7 +17,6 @@ from bods_client.constants import (
     GTFS_RT_PATH,
     SIRI_VM_PATH,
     TIMETABLES_PATH,
-    TXC_FILES_PATH,
 )
 from bods_client.models import (
     APIError,
@@ -26,8 +25,6 @@ from bods_client.models import (
     Timetable,
     TimetableParams,
     TimetableResponse,
-    TxcFileParams,
-    TxcFileResponse,
 )
 from bods_client.models.avl import GTFSRTParams, SIRIVMParams
 from bods_client.models.fares import FaresParams
@@ -82,10 +79,6 @@ class BODSClient:
     def gtfs_rt_zip_endpoint(self) -> str:
         parsed_url = urlparse(self.base_url)
         return f"{parsed_url.scheme}://{parsed_url.hostname}/avl/download/gtfsrt"
-
-    @property
-    def txc_files_endpoint(self) -> str:
-        return f"{self.base_url}/{self.version}/{TXC_FILES_PATH}/"
 
     def get_timetable_datasets(
         self, params: Optional[TimetableParams] = None
@@ -279,29 +272,4 @@ class BODSClient:
                     message = FeedMessage()
                     message.ParseFromString(f.read())
                     return message
-        return APIError(status_code=response.status_code, reason=response.content)
-
-    def get_txc_files(
-        self, params: Optional[TxcFileParams] = None
-    ) -> Union[TxcFileResponse, APIError]:
-        """
-        Fetches metadata for the TXC files currently available in the BODS database.
-
-        This only returns metadata about a TXC file including its filename.
-
-        Args:
-            noc: A National Operator Code.
-            line_name: Limit data sets to those containing the specified LineName.
-            limit: Maximum number of results to return per page.
-            offset: Number to offset results by.
-        """
-
-        if params is None:
-            params = TxcFileParams()
-
-        params = json.loads(params.json(by_alias=True, exclude_none=True))
-        response = self._make_request(self.txc_files_endpoint, params=params)
-
-        if response.status_code == HTTPStatus.OK:
-            return TxcFileResponse(**response.json())
         return APIError(status_code=response.status_code, reason=response.content)

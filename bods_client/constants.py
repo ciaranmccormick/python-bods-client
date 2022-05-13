@@ -13,13 +13,6 @@ FARES_PATH = "fares/dataset"
 GTFS_RT_PATH = "gtfsrtdatafeed"
 SIRI_VM_PATH = "datafeed"
 
-V2 = BODS_API_URL + "/v2"
-
-OPERATORS_PATH = "operators"
-V2_TIMETABLES_PATH = "timetables"
-TXC_FILES_PATH = "txcfiles"
-AVL_FEEDS_PATH = "avlfeeds"
-
 DATASET_STATUSES = ["published", "error", "expired", "inactive"]
 
 OK_200 = 200

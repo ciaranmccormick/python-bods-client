@@ -2,10 +2,7 @@ from .avl import GTFSRTParams, SIRIVMParams
 from .base import APIError, BoundingBox
 from .fares import Fares, FaresParams, FaresResponse
 from .siri import Siri
-from .timetables import (
-    Timetable, TimetableParams, TimetableResponse, TxcFile, TxcFileParams,
-    TxcFileResponse
-)
+from .timetables import Timetable, TimetableParams, TimetableResponse
 
 __all__ = [
     "APIError",
@@ -19,7 +16,4 @@ __all__ = [
     "Timetable",
     "TimetableParams",
     "TimetableResponse",
-    "TxcFile",
-    "TxcFileParams",
-    "TxcFileResponse",
 ]
