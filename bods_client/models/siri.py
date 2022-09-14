@@ -47,7 +47,7 @@ class MonitoredVehicleJourney(BaseModel):
     vehicle_journey_ref: Optional[str]
     destination_name: Optional[str]
     destination_ref: Optional[str]
-    orgin_name: Optional[str]
+    origin_name: Optional[str]
     origin_ref: Optional[str]
     origin_aimed_departure_time: Optional[datetime]
     direction_ref: Optional[str]
