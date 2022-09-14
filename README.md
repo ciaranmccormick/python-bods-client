@@ -20,7 +20,7 @@ pip install bods-client
 ### GTFS RT
 
 All the vehicle locations for vehicles in a geographical location can be obtained
-using the `get_gtfs_rt_data_feed` method with a boundng box.
+using the `get_gtfs_rt_data_feed` method with a bounding box.
 
 ```python
 
