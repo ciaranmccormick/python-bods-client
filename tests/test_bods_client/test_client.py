@@ -70,10 +70,10 @@ def test_get_timetable_datasets_with_params(mrequests):
 
     key = "apikey"
     client = BODSClient(api_key=key)
-    params = TimetableParams(limit=10, nocs=["NT"])
+    params = TimetableParams(limit=10, nocs=["NT", "PT"])
     client.get_timetable_datasets(params=params)
 
-    expected_params = {"limit": 10, "offset": 0, "noc": ["NT"]}
+    expected_params = {"limit": 10, "offset": 0, "noc": "NT,PT"}
     mrequests.assert_called_once_with(client.timetable_endpoint, params=expected_params)
 
 

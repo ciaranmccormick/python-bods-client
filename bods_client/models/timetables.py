@@ -39,6 +39,18 @@ class TimetableParams(BaseAPIParams):
     dq_rag: Optional[str] = Field(None, alias="dqRag")
     bods_compliance: Optional[bool] = Field(None, alias="bodsCompliance")
 
+    def dict(self, *args, **kwargs):
+        """Custom dict method to convert list of noc strings to a cvs.
+
+        There's a bug in the BODS timetables API where ?noc=NOC1&noc=NOC2
+        only recognises the last parameter.
+        """
+        dict_ = super().dict(*args, **kwargs)
+
+        if "noc" in dict_:
+            dict_["noc"] = ",".join(dict_.get("noc", []))
+        return dict_
+
 
 class TimetableResponse(BaseAPIResponse):
     results: List[Timetable]
