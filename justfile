@@ -11,7 +11,7 @@ test-all:
 
 # run specific tests
 test TEST:
-	poetry run pytest TEST
+	poetry run pytest {{TEST}}
 
 # check dependencies
 check:
