@@ -14,12 +14,23 @@ from bods_client.types import AdminAreasType
 
 
 class Timetable(BaseDataset):
+    id: int
+    created: datetime
+    modified: datetime
+    operator_name: str = Field(alias="operatorName")
+    nocs: List[str] = Field(alias="noc")
+    name: str
+    description: str
+    comment: str
+    status: str
+    url: str
+    extension: str
     lines: List[str]
-    localities: List[Locality]
-    admin_areas: List[AdminAreas] = Field(alias="adminAreas")
     first_start_date: datetime = Field(alias="firstStartDate")
     first_end_date: datetime = Field(None, alias="firstEndDate")
     last_end_date: datetime = Field(None, alias="lastEndDate")
+    admin_areas: List[AdminAreas] = Field(alias="adminAreas")
+    localities: List[Locality]
     dq_score: str = Field(alias="dqScore")
     dq_rag: str = Field(alias="dqRag")
     bods_compliance: bool = Field(None, alias="bodsCompliance")
