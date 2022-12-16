@@ -2,21 +2,15 @@
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
-
 [tool.poetry]
 name = "bods-client"
 description = "A Python client for the Department for Transport Bus Open Data Service API"
-version = "0.10.0"
+version = "0.10.1"
 license = "MIT"
-
 authors = ["Ciaran McCormick"]
-
 readme = "README.md"
-
 repository = "https://github.com/ciaranmccormick/python-bods-client"
-
-keywords = []
-
+keywords = ["BODS", "bus", "open data", "TXC", "transxchange"]
 classifiers = [
   "Development Status :: 3 - Alpha",
   "Intended Audience :: Developers",
