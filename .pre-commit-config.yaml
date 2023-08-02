@@ -12,17 +12,22 @@ repos:
       - id: file-contents-sorter
         files: .gitignore
 
-  - repo: https://github.com/psf/black
-    rev: "20.8b1"
+  - repo: local
     hooks:
       - id: black
+        name: black
+        entry: black
+        language: system
+        types: [python]
 
-  - repo: https://gitlab.com/pycqa/flake8
-    rev: "4.0.1"
-    hooks:
-      - id: flake8
-
-  - repo: https://github.com/timothycrosley/isort
-    rev: "5.10.1"
-    hooks:
       - id: isort
+        name: isort
+        entry: isort
+        language: system
+        types: [python]
+
+      - id: flake8
+        name: flake8
+        entry: flake8
+        language: system
+        types: [python]
