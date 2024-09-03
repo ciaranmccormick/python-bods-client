@@ -5,7 +5,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry]
 name = "bods-client"
 description = "A Python client for the Department for Transport Bus Open Data Service API"
-version = "0.13.0"
+version = "0.14.0-beta"
 license = "MIT"
 authors = ["Ciaran McCormick"]
 readme = "README.md"
