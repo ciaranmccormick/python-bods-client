@@ -1,6 +1,7 @@
 """
 client.py a module containing a client for requesting data from the BODS API.
 """
+
 import io
 import json
 import zipfile
@@ -108,7 +109,7 @@ class BODSClient:
         if params is None:
             params = TimetableParams()
 
-        params = json.loads(params.json(by_alias=True, exclude_none=True))
+        params = json.loads(params.model_dump_json(by_alias=True, exclude_none=True))
         response = self._make_request(self.timetable_endpoint, params=params)
 
         if response.status_code == HTTPStatus.OK:
@@ -159,7 +160,7 @@ class BODSClient:
         if params is None:
             params = FaresParams()
 
-        params = json.loads(params.json(by_alias=True, exclude_none=True))
+        params = json.loads(params.model_dump_json(by_alias=True, exclude_none=True))
         response = self._make_request(self.fares_endpoint, params=params)
         if response.status_code == 200:
             return FaresResponse(**response.json())
@@ -196,7 +197,7 @@ class BODSClient:
         if params is None:
             params = SIRIVMParams()
 
-        params = json.loads(params.json(by_alias=True, exclude_none=True))
+        params = json.loads(params.model_dump_json(by_alias=True, exclude_none=True))
         response = self._make_request(self.siri_vm_endpoint, params=params)
         if response.status_code == HTTPStatus.OK:
             return response.content
@@ -236,7 +237,6 @@ class BODSClient:
     def get_gtfs_rt_data_feed(
         self, params: Optional[GTFSRTParams] = None
     ) -> Union[FeedMessage, APIError]:
-
         """
         Returns a FeedMessage of vehicles currently providing Automatic Vehicle
         Locations in BODS.
@@ -252,7 +252,7 @@ class BODSClient:
         if params is None:
             params = GTFSRTParams()
 
-        params = json.loads(params.json(by_alias=True, exclude_none=True))
+        params = json.loads(params.model_dump_json(by_alias=True, exclude_none=True))
         response = self._make_request(self.gtfs_rt_endpoint, params=params)
         if response.status_code == HTTPStatus.OK:
             message = FeedMessage()

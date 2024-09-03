@@ -1,7 +1,9 @@
+import json
 from datetime import datetime
 from typing import List, Optional
 
 from pydantic import BaseModel
+from pydantic.config import ConfigDict
 from pydantic.fields import Field
 
 from bods_client.types import NOCs
@@ -21,10 +23,9 @@ class BaseDataset(BaseModel):
 
 
 class BaseAPIParams(BaseModel):
-    class Config:
-        allow_population_by_field_name = True
+    model_config = ConfigDict(populate_by_name=True)
 
-    nocs: Optional[NOCs] = Field(None, alias="noc")
+    nocs: Optional[NOCs] = Field(default=None, alias="noc")
     status: Optional[str] = None
     limit: int = 25
     offset: int = 0
@@ -32,8 +33,8 @@ class BaseAPIParams(BaseModel):
 
 class BaseAPIResponse(BaseModel):
     count: int
-    next: Optional[str]
-    previous: Optional[str]
+    next: Optional[str] = None
+    previous: Optional[str] = None
 
 
 class APIError(BaseModel):
@@ -70,12 +71,14 @@ class BoundingBox(BaseModel):
 
 
 class BoundingBoxMixin(BaseModel):
-    bounding_box: Optional[BoundingBox] = Field(None, alias="boundingBox")
+    bounding_box: Optional[BoundingBox] = Field(
+        default=None, serialization_alias="boundingBox"
+    )
 
-    def dict(self, *args, **kwargs):
-        d = super().dict(*args, **kwargs)
+    def model_dump_json(self, *args, **kwargs):
+        d = super().model_dump(*args, **kwargs)
 
         if "boundingBox" in d and self.bounding_box is not None:
             d["boundingBox"] = self.bounding_box.csv()
 
-        return d
+        return json.dumps(d)
