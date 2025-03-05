@@ -83,7 +83,7 @@ wheels = [
 
 [[package]]
 name = "bods-client"
-version = "0.14.0b0"
+version = "0.14.0"
 source = { editable = "." }
 dependencies = [
     { name = "gtfs-realtime-bindings" },

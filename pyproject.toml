@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "bods-client"
-version = "0.14.0-beta"
+version = "0.14.0"
 description = "A Python client for the Department for Transport Bus Open Data Service API"
 authors = [{ name = "Ciaran McCormick" }]
 requires-python = ">=3.9,<3.14"
