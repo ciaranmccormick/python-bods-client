@@ -1,24 +1,18 @@
-name: bods-client-pypi
+name: Release
 on:
   push:
-    tags: "*"
+    tags:
+      - v*
 jobs:
-  publish:
-    name: publish
+  pypi:
+    name: Publish to PyPI
     runs-on: ubuntu-latest
+    environment:
+      name: release
+    permissions:
+      id-token: write
     steps:
       - uses: actions/checkout@v4
-      - name: Install uv
-        uses: astral-sh/setup-uv@v5
-      - name: Setup Python 3
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.12"
-      - name: Install dependencies
-        run: |
-          uv sync
-      - name: Publish to pypi
-        shell: bash
-        run: |
-          uv build
-          uv publish --trusted-publishing automatic
+      - uses: astral-sh/setup-uv@v5
+      - run: uv build
+      - run: uv publish --trusted-publishing always
