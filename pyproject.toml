@@ -1,55 +1,65 @@
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.poetry]
+[project]
 name = "bods-client"
-description = "A Python client for the Department for Transport Bus Open Data Service API"
 version = "0.14.0-beta"
-license = "MIT"
-authors = ["Ciaran McCormick"]
+description = "A Python client for the Department for Transport Bus Open Data Service API"
+authors = [{ name = "Ciaran McCormick" }]
+requires-python = ">=3.9,<3.14"
 readme = "README.md"
-repository = "https://github.com/ciaranmccormick/python-bods-client"
-keywords = ["BODS", "bus", "open data", "TXC", "transxchange"]
+license = "MIT"
+keywords = [
+    "BODS",
+    "bus",
+    "open data",
+    "TXC",
+    "transxchange",
+]
 classifiers = [
-  "Development Status :: 3 - Alpha",
-  "Intended Audience :: Developers",
-  "Operating System :: OS Independent",
-  "Topic :: Software Development :: Libraries :: Python Modules",
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Topic :: Software Development :: Libraries :: Python Modules",
 ]
 
-[tool.poetry.dependencies]
-python = "^3.9"
-gtfs-realtime-bindings = "^1.0.0"
-importlib-metadata = "^4.0.0"
-lxml = "^4.7.1"
-protobuf = "^3.20.0"
-pydantic = "~2.8"
-python-dateutil = "~2.8"
-requests = "^2.25.0"
+dependencies = [
+    "gtfs-realtime-bindings>=1.0.0,<2",
+    "importlib-metadata>=4.0.0,<5",
+    "lxml>=4.7.1,<5",
+    "protobuf>=3.20.0,<4",
+    "pydantic>=2.8,<2.9",
+    "python-dateutil>=2.8,<2.9",
+    "requests>=2.25.0,<3",
+]
 
-[tool.poetry.group.dev.dependencies]
-black = "^24.8.0"
-doc8 = "^0.8"
-flake8 = "^7.1.0"
-flake8-pytest-style = "^2.0"
-ipdb = "^0.13.4"
-ipython = ">=8.0.1,<9.0.0"
-isort = "^5.13.0"
-lxml-stubs = ">=0.5.0"
-mypy = "^1.11.0"
-pip-audit = ">=2.7.0"
-pre-commit = "^3.8.0"
-pytest = "^8.0.0"
-pytest-cov = "^5.0.0"
-pytest-randomly = "^3.5"
-requests-mock = "^1.9.3"
-sphinx = "^3.5"
-sphinx-autodoc-typehints = "^1.11"
-tomlkit = "^0.7"
-types-requests = "^2.28.11.2"
-types-toml = "^0.10.8"
+[dependency-groups]
+dev = [
+    "black>=24.8.0,<25",
+    "doc8>=0.8,<0.9",
+    "flake8>=7.1.0,<8",
+    "flake8-pytest-style~=2.0",
+    "ipdb>=0.13.4,<0.14",
+    "ipython>=8.0.1,<9.0.0",
+    "isort>=5.13.0,<6",
+    "lxml-stubs>=0.5.0",
+    "mypy>=1.11.0,<2",
+    "pip-audit>=2.7.0",
+    "pre-commit>=3.8.0,<4",
+    "pytest>=8.0.0,<9",
+    "pytest-cov>=5.0.0,<6",
+    "pytest-randomly~=3.5",
+    "requests-mock>=1.9.3,<2",
+    "sphinx~=3.5",
+    "sphinx-autodoc-typehints~=1.11",
+    "tomlkit>=0.7,<0.8",
+    "types-requests>=2.28.11.2,<3",
+    "types-toml>=0.10.8,<0.11",
+]
 
+[project.urls]
+repository = "https://github.com/ciaranmccormick/python-bods-client"
 
 [tool.mypy]
 allow_redefinition = false
@@ -84,7 +94,6 @@ line_length = 89
 ignore-path = ["docs/_build"]
 max-line-length = 89
 sphinx = true
-
 
 [tool.pytest.ini_options]
 # Directories that are not visited by pytest collector:
